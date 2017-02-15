@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-allopen'
 
 android {
     compileSdkVersion 23
@@ -24,6 +25,10 @@ android {
     }
 }
 
+allOpen {
+    annotation("es.voghdev.hellokotlin.TestOpen")
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -31,6 +36,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:23.1.1'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.5'
+    // testCompile 'de.jodamob.kotlin:kotlin-runner-junit4:0.3.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.anko:anko-common:0.9"
 }
