@@ -17,17 +17,35 @@ package es.voghdev.hellokotlin
 
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
+import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
-import org.mockito.exceptions.base.MockitoException
+import org.mockito.ArgumentCaptor
+import org.mockito.Captor
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
+import org.mockito.MockitoAnnotations
 
 class BasicMockitoTest(){
 
+    @Captor val argumentCaptor : ArgumentCaptor<Float>? = null
 
-    @Test(expected = MockitoException::class)
-    fun shouldThrowAnExceptionWhenMockingFinalClasses() {
+    @Before fun setUp(){
+        MockitoAnnotations.initMocks(this)
+    }
+
+    @Test
+    fun shouldNotThrowAnExceptionWhenMockingFinalClassesAnymore() {
         val user = mock(User::class.java)
         `when`(user.address).thenReturn("Santa Paula Av. 137")
+
+        assertNotNull(user)
+
+        assertEquals("Santa Paula Av. 137", user.address)
+    }
+
+    @Test
+    fun shouldInitializeAnArgumentCaptorTheSameWayThanJava() {
+        assertNotNull(argumentCaptor)
     }
 
     @Test
