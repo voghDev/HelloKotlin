@@ -18,4 +18,8 @@ package es.voghdev.hellokotlin
 open class Invoice(
         customerId : Long ,
         amount : Float
-)
+) {
+    fun getAmount() : Float {
+        return 10f
+    }
+}

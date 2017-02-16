@@ -15,10 +15,10 @@
  */
 package es.voghdev.hellokotlin
 
+import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 import org.mockito.exceptions.base.MockitoException
 
 class BasicMockitoTest(){
@@ -35,6 +35,10 @@ class BasicMockitoTest(){
         val inv = mock(Invoice::class.java)
         assertNotNull(inv)
 
-        //`when`(inv)
+        `when`(inv.getAmount()).thenReturn(50f)
+
+        val result = inv.getAmount()
+
+        assertEquals(50f, result)
     }
 }

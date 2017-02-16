@@ -137,7 +137,7 @@ class ExampleUnitTest {
     @Test
     fun shouldUseInlineFunctionsInATest() {
         sampleInline {
-            println("inline")
+            println("printed in an inline function")
         }
     }
 }
