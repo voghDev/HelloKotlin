@@ -16,6 +16,9 @@ class SomeDetailPresenterTest {
     @Mock
     lateinit var mockContext: Context
 
+    @Mock
+    lateinit var mockView : SomeDetailPresenter.MVPView
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -23,7 +26,6 @@ class SomeDetailPresenterTest {
 
     @Test
     fun `should request a List of users on start`() {
-        val mockView = mock(SomeDetailPresenter.MVPView::class.java)
         val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
 
         assertNotNull(presenter)
