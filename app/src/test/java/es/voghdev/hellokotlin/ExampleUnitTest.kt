@@ -140,4 +140,9 @@ class ExampleUnitTest {
             println("printed in an inline function")
         }
     }
+
+    @Test
+    fun shouldVerifyInsideAnAsynchronousCall() {
+
+    }
 }

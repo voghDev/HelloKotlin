@@ -15,6 +15,12 @@
  */
 package es.voghdev.hellokotlin
 
-@Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.CLASS)
-annotation class TestOpen
+abstract class Presenter<T1, T2>() {
+    open fun initialize() { /* Empty */ }
+    open fun resume() { /* Empty */ }
+    open fun pause() { /* Empty */ }
+    open fun destroy() { /* Empty */ }
+
+    var view : T1? = null
+    var navigator : T2? = null
+}

@@ -21,6 +21,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
+import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
@@ -28,6 +29,8 @@ import org.mockito.MockitoAnnotations
 class BasicMockitoTest(){
 
     @Captor val argumentCaptor : ArgumentCaptor<Float>? = null
+
+    @Mock val mockUser : User? = null
 
     @Before fun setUp(){
         MockitoAnnotations.initMocks(this)
@@ -44,8 +47,9 @@ class BasicMockitoTest(){
     }
 
     @Test
-    fun shouldInitializeAnArgumentCaptorTheSameWayThanJava() {
+    fun shouldInitializeAnnotationsTheSameWayThanJava() {
         assertNotNull(argumentCaptor)
+        assertNotNull(mockUser)
     }
 
     @Test

@@ -15,10 +15,6 @@
  */
 package es.voghdev.hellokotlin
 
-data class User (
-        val name: String = "",
-        val address: String = "",
-        val username: String = "",
-        val email: String = "",
-        val thumbnail: String = ""
-)
+class UserRepository : GetUsers, InsertUser {
+
+}
