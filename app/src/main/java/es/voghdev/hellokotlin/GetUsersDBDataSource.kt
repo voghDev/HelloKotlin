@@ -15,23 +15,7 @@
  */
 package es.voghdev.hellokotlin
 
-import java.util.*
+class GetUsersDBDataSource : GetUsers
+{
 
-class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSource: GetUsers?, val insertUserApi: InsertUser?) : GetUsers, InsertUser {
-    var cachePolicy : CachePolicy? = null
-    var cache : MutableList<User> = ArrayList<User>()
-
-    override fun getUsers(): List<User> {
-        if(cachePolicy?.isCacheDirty() ?: false)
-            cache.clear()
-
-        cache = getUsersApiDataSource?.getUsers() as MutableList<User>
-        cachePolicy = TimedCachePolicy(15000)
-
-        return cache
-    }
-
-    override fun insertUser() {
-        insertUserApi?.insertUser()
-    }
 }

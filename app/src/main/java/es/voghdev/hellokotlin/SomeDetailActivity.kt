@@ -29,7 +29,10 @@ class SomeDetailActivity : BaseActivity(),
     lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        userRepository = UserRepository()
+        userRepository = UserRepository(
+                getUsersApiDataSource = GetUsersApiDataSource(),
+                getUsersDbDataSource = GetUsersDBDataSource(),
+                insertUserApi = InsertUserApiDataSource())
 
         presenter = SomeDetailPresenter(this, userRepository)
         presenter?.initialize()
