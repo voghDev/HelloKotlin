@@ -38,7 +38,7 @@ class SomeDetailPresenterTest {
     }
 
     private fun waitForAsyncBlocksToFinish() {
-        Thread.sleep(200)
+        Thread.sleep(30)
     }
 
     @Test
