@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HelloKotlin</string>
+    <string name="no_results">No results</string>
+    <string name="users_found_param">%1$d users found</string>
 </resources>

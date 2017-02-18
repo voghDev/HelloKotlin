@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_some_detail.*
 
 class SomeDetailActivity : BaseActivity(),
         SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator {
-
     override fun getLayoutId(): Int {
         return R.layout.activity_some_detail
     }
@@ -39,6 +38,10 @@ class SomeDetailActivity : BaseActivity(),
     }
 
     override fun showUsers(users: List<User>) {
-        tvTitle.text = "{$users.size} users found"
+        tvTitle.text = getString(R.string.users_found_param, users.size)
+    }
+
+    override fun showEmptyCase() {
+        tvTitle.text = getString(R.string.no_results)
     }
 }

@@ -22,14 +22,19 @@ class SomeDetailPresenter(val context: Context, val userRepository: UserReposito
         Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
 
     override fun initialize() {
-        doAsync {
+        doAsync() {
             val users = userRepository.getUsers()
-            view?.showUsers(users)
+
+            if (users.isNotEmpty())
+                view?.showUsers(users)
+            else
+                view?.showEmptyCase()
         }
     }
 
     interface MVPView {
         fun showUsers(users: List<User>)
+        fun showEmptyCase()
     }
 
     interface Navigator
