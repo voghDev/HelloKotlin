@@ -17,19 +17,14 @@ package es.voghdev.hellokotlin
 
 import android.content.Context
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
-class SomeDetailPresenter(context: Context, userRepository: UserRepository?) :
+class SomeDetailPresenter(val context: Context, val userRepository: UserRepository) :
         Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
 
     override fun initialize() {
-
         doAsync {
-//            val users = userRepository?.getUsers()
-            val users = listOf<User>(
-                    User(name = "John", email = "john@company.com"),
-                    User(name = "Lisa", email = "lisa@company.com"))
-            uiThread { view?.showUsers(users) }
+            val users = userRepository.getUsers()
+            view?.showUsers(users)
         }
     }
 

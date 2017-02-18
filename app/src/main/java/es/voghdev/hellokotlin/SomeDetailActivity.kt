@@ -27,9 +27,11 @@ class SomeDetailActivity : BaseActivity(),
     }
 
     var presenter: SomeDetailPresenter? = null
-    var userRepository: UserRepository? = null
+    lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        userRepository = UserRepository()
+
         presenter = SomeDetailPresenter(this, userRepository)
         presenter?.initialize()
         presenter?.view = this
