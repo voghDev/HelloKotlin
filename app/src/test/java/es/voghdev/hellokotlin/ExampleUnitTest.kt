@@ -18,6 +18,7 @@ package es.voghdev.hellokotlin
 import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import java.util.concurrent.Executors
 
@@ -97,7 +98,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun shouldBeAbleToUseBasicArrayOperations() {
+    fun `should be able to use basic array operations`() {
         val a = listOf(1, 2, 3)
 
         assertEquals(1, a[0])
@@ -115,7 +116,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun withOperatorShouldWork() {
+    fun `the "with" operator should work`() {
         val arr = listOf("Hello", "We", "Are", "Learning", "Kotlin")
 
         with(arr) {
@@ -135,14 +136,27 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun shouldUseInlineFunctionsInATest() {
+    fun `should be able to use inline functions in a Test`() {
         sampleInline {
             println("printed in an inline function")
         }
     }
 
     @Test
-    fun shouldVerifyInsideAnAsynchronousCall() {
+    fun `should verify inside an asynchronous call`() {
 
+    }
+
+    @Test
+    fun `should create a Configuration object`() {
+        val conf = Configuration(mapOf(
+                "height" to 1920,
+                "width" to 1080,
+                "dp" to 445,
+                "deviceName" to "Google Nexus 5"
+        ))
+
+        assertNotNull(conf)
+        assertEquals(1080, conf.width)
     }
 }
