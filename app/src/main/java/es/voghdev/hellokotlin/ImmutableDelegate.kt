@@ -18,7 +18,9 @@ package es.voghdev.hellokotlin
 import kotlin.reflect.KProperty
 
 class ImmutableDelegate<T> {
-    operator fun getValue(thisRef: Any?, prop: KProperty<*>) {
+    val g : Float = 9.806f
 
+    operator fun getValue(thisRef: Any?, prop: KProperty<*>) {
+        g
     }
 }

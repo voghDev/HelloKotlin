@@ -57,9 +57,9 @@ class BasicMockitoTest(){
         val inv = mock(Invoice::class.java)
         assertNotNull(inv)
 
-        `when`(inv.getAmount()).thenReturn(50f)
+        `when`(inv.amount).thenReturn(50f)
 
-        val result = inv.getAmount()
+        val result = inv.amount
 
         assertEquals(50f, result)
     }
