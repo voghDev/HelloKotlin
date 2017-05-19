@@ -16,10 +16,12 @@
 package es.voghdev.hellokotlin
 
 import android.content.Context
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
-import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 class SomeAsyncPresenterTest {
@@ -83,13 +85,40 @@ class SomeAsyncPresenterTest {
         verify(mockView).showError(anyString())
     }
 
+    @Test
+    fun `should show a sample name when data is received (using mockito-kotlin thenReturn)`() {
+        whenever(mockContext.getString(anyInt(), anyString())).thenReturn("Name is Bob")
+
+        val presenter = givenAMockedPresenter()
+
+        val data = SampleData(id = 4L, name = "Bob")
+
+        presenter.onDataReceived(data)
+
+        verify(mockView).showName("Name is Bob")
+    }
+
+    @Test
+    fun `should show a sample name when data is received (using mockito-kotlin doReturn)`() {
+        mockContext = mock<Context> {
+            on { getString(anyInt(), anyString()) } doReturn "Name is Martin"
+        }
+        val presenter = givenAMockedPresenter()
+
+        val data = SampleData(id = 5L, name = "Martin")
+
+        presenter.onDataReceived(data)
+
+        verify(mockView).showName(anyString())
+    }
+
     protected fun givenADataSourceReturningSuccess(listener: AsyncCall.Listener) {
         doAnswer {
             val callback = it.arguments[0] as AsyncCall.Listener
 
             callback.onSuccess("Hello!")
             null
-        }.`when`(mockAsyncRepository).execute(listener)
+        }.`when`(mockAsyncRepository).execute(any())
     }
 
     protected fun givenADataSourceReturningFailure(listener: AsyncCall.Listener) {
@@ -98,7 +127,7 @@ class SomeAsyncPresenterTest {
 
             callback.onFailure(Exception("Nope :-/"))
             null
-        }.`when`(mockAsyncRepository).execute(listener)
+        }.`when`(mockAsyncRepository).execute(any())
     }
 
     protected fun waitForAsyncBlocksToFinish() {

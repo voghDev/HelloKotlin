@@ -34,10 +34,15 @@ class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
         })
     }
 
+    fun onDataReceived(data: SampleData) {
+        view?.showName(context.getString(R.string.name_is, data.name))
+    }
+
     interface MVPView {
         fun showSuccess(s: String)
         fun showError(s: String)
         fun showLoading()
+        fun showName(name: String)
     }
 
     interface Navigator {
