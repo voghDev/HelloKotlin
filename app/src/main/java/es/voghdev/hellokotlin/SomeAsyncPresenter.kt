@@ -17,13 +17,13 @@ package es.voghdev.hellokotlin
 
 import android.content.Context
 
-class SomeAsyncPresenter(val context: Context, val asyncDataSource: AsyncCall) :
+class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
         Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>() {
 
     override fun initialize() {
         view?.showLoading()
 
-        val listener = object : AsyncCall.Listener {
+        asyncRepository.execute(object : AsyncCall.Listener {
             override fun onSuccess(s: String) {
                 view?.showSuccess(s)
             }
@@ -31,8 +31,7 @@ class SomeAsyncPresenter(val context: Context, val asyncDataSource: AsyncCall) :
             override fun onFailure(e: Exception) {
                 view?.showError(e.message ?: "")
             }
-        }
-        asyncDataSource.execute(listener)
+        })
     }
 
     interface MVPView {

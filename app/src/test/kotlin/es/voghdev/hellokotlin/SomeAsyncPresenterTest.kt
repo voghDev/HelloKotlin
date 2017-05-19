@@ -33,7 +33,7 @@ class SomeAsyncPresenterTest {
     @Mock
     lateinit var mockView: SomeAsyncPresenter.MVPView
 
-    @Mock lateinit var mockAsyncCall: AsyncCall
+    @Mock lateinit var mockAsyncRepository: AsyncCall
     @Mock lateinit var mockListener: AsyncCall.Listener
 
     @Before
@@ -42,7 +42,7 @@ class SomeAsyncPresenterTest {
     }
 
     private fun givenAMockedPresenter(): SomeAsyncPresenter {
-        val presenter = SomeAsyncPresenter(mockContext, mockAsyncCall)
+        val presenter = SomeAsyncPresenter(mockContext, mockAsyncRepository)
         presenter.view = mockView
         presenter.navigator = mockNavigator
         return presenter
@@ -58,7 +58,7 @@ class SomeAsyncPresenterTest {
     }
 
     @Test
-    fun `should show success on start if DataSource returns success`() {
+    fun `should show success on start if Repository returns success`() {
         givenADataSourceReturningSuccess(mockListener)
 
         val presenter = givenAMockedPresenter()
@@ -71,7 +71,7 @@ class SomeAsyncPresenterTest {
     }
 
     @Test
-    fun `should show error on start if DataSource returns error`() {
+    fun `should show error on start if Repository returns error`() {
         givenADataSourceReturningFailure(mockListener)
 
         val presenter = givenAMockedPresenter()
@@ -84,17 +84,21 @@ class SomeAsyncPresenterTest {
     }
 
     protected fun givenADataSourceReturningSuccess(listener: AsyncCall.Listener) {
-        doAnswer { invocation ->
-            (invocation.arguments.elementAt(0) as AsyncCall.Listener).onSuccess("Hello!")
+        doAnswer {
+            val callback = it.arguments[0] as AsyncCall.Listener
+
+            callback.onSuccess("Hello!")
             null
-        }.`when`(mockAsyncCall).execute(listener)
+        }.`when`(mockAsyncRepository).execute(listener)
     }
 
     protected fun givenADataSourceReturningFailure(listener: AsyncCall.Listener) {
-        doAnswer { invocation ->
-            (invocation.arguments.elementAt(0) as AsyncCall.Listener).onSuccess("Nope :-/")
+        doAnswer {
+            val callback = it.arguments[0] as AsyncCall.Listener
+
+            callback.onFailure(Exception("Nope :-/"))
             null
-        }.`when`(mockAsyncCall).execute(listener)
+        }.`when`(mockAsyncRepository).execute(listener)
     }
 
     protected fun waitForAsyncBlocksToFinish() {
