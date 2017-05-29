@@ -12,9 +12,9 @@ In this repository, we will work on the following aspects of Kotlin
 - [ ] Apply checkstyle to a Kotlin project and see how it works
 - [X] Implement some basic instrumentation Tests with Kotlin
 - [X] Create a basic architecture using MVP or MVVM
-- [ ] Pass some advanced Unit tests mocking instances and testing asynchronous calls
+- [X] Pass some advanced Unit tests mocking instances and testing asynchronous calls
 - [X] Implement some simple exercises to learn language basics
-- [ ] Add mockito-kotlin to clean Mockito boilerplate in tests
+- [X] Add mockito-kotlin to clean Mockito boilerplate in tests
 - [ ] Implement some tests with kotlintest to see how it improves readability
 - [ ] Add some example usage of Kotlin Coroutines to understand how they work
 
