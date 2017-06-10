@@ -11,6 +11,7 @@ In this repository, we will work on the following aspects of Kotlin
 
 - [ ] Apply checkstyle to a Kotlin project and see how it works
 - [X] Implement some basic instrumentation Tests with Kotlin
+- [X] Use a package-by-feature structure instead of package-by-layer
 - [X] Create a basic architecture using MVP or MVVM
 - [X] Pass some advanced Unit tests mocking instances and testing asynchronous calls
 - [X] Implement some simple exercises to learn language basics
