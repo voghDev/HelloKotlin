@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.features.user
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import es.voghdev.hellokotlin.R
+import es.voghdev.hellokotlin.features.user.datasource.GetUsersApiDataSource
+import es.voghdev.hellokotlin.features.user.datasource.GetUsersDBDataSource
+import es.voghdev.hellokotlin.features.user.datasource.InsertUserApiDataSource
+import es.voghdev.hellokotlin.global.BaseActivity
 import kotlinx.android.synthetic.main.activity_some_detail.*
 
 class SomeDetailActivity : BaseActivity(),

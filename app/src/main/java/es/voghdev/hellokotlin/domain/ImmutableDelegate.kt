@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.domain
 
-interface CachePolicy {
-    fun isCacheDirty() : Boolean {
-        return true // By default, cache policy is "always dirty"
+import kotlin.reflect.KProperty
+
+class ImmutableDelegate<T> {
+    val g : Float = 9.806f
+
+    operator fun getValue(thisRef: Any?, prop: KProperty<*>) {
+        g
     }
 }

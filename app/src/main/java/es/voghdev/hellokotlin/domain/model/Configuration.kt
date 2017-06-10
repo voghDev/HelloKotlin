@@ -13,18 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.domain.model
 
-import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
-
-abstract class BaseActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
-        setContentView(getLayoutId())
-    }
-
-    abstract fun getLayoutId(): Int
+class Configuration (map: Map<String, Any?>){
+    val width : Int by map
+    val height : Int by map
+    val dp : Int by map
+    val deviceName : String by map
 }

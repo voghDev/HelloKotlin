@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.domain.model
 
-interface InsertUser {
-    fun insertUser() {
-        /* Empty */
-    }
-}
+class SampleData (val id : Long, val name : String)

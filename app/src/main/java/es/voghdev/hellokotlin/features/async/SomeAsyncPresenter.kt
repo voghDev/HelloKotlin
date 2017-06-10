@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.features.async
 
 import android.content.Context
+import es.voghdev.hellokotlin.R
+import es.voghdev.hellokotlin.domain.AsyncCall
+import es.voghdev.hellokotlin.domain.model.SampleData
+import es.voghdev.hellokotlin.global.Presenter
 
 class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
         Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>() {

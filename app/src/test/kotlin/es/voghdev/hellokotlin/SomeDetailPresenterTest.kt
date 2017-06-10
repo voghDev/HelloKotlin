@@ -1,6 +1,9 @@
 package es.voghdev.hellokotlin
 
 import android.content.Context
+import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
+import es.voghdev.hellokotlin.features.user.User
+import es.voghdev.hellokotlin.features.user.UserRepository
 import junit.framework.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test

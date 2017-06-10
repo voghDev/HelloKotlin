@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.domain
 
-import java.util.Collections
+interface AsyncCall {
+    fun execute(listener : Listener) {}
 
-interface GetUsers {
-    fun getUsers(): List<User> {
-        return Collections.emptyList()
+    interface Listener {
+        fun onSuccess(result: String)
+        fun onFailure(e: Exception)
     }
 }

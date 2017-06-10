@@ -15,6 +15,7 @@
  */
 package es.voghdev.hellokotlin
 
+import es.voghdev.hellokotlin.domain.model.Configuration
 import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
 import org.junit.Assert.assertEquals

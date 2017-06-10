@@ -13,6 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.features.user.usecase
 
-class SampleData (val id : Long, val name : String)
+import es.voghdev.hellokotlin.features.user.User
+import java.util.Collections
+
+interface GetUsers {
+    fun getUsers(): List<User> {
+        return Collections.emptyList()
+    }
+}

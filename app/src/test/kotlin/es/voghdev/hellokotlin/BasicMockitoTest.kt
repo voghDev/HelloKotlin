@@ -15,6 +15,8 @@
  */
 package es.voghdev.hellokotlin
 
+import es.voghdev.hellokotlin.features.order.Invoice
+import es.voghdev.hellokotlin.features.user.User
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
 import org.junit.Before

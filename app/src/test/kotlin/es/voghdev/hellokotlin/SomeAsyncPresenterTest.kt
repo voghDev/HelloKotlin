@@ -17,6 +17,9 @@ package es.voghdev.hellokotlin
 
 import android.content.Context
 import com.nhaarman.mockito_kotlin.*
+import es.voghdev.hellokotlin.domain.AsyncCall
+import es.voghdev.hellokotlin.domain.model.SampleData
+import es.voghdev.hellokotlin.features.async.SomeAsyncPresenter
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt

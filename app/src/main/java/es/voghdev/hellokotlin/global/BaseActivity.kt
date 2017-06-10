@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.global
 
-import kotlin.reflect.KProperty
+import android.os.Bundle
+import android.os.PersistableBundle
+import android.support.v7.app.AppCompatActivity
 
-class ImmutableDelegate<T> {
-    val g : Float = 9.806f
+abstract class BaseActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
 
-    operator fun getValue(thisRef: Any?, prop: KProperty<*>) {
-        g
+        setContentView(getLayoutId())
     }
+
+    abstract fun getLayoutId(): Int
 }

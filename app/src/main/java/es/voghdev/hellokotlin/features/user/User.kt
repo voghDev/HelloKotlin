@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.features.user
 
-abstract class Presenter<T1, T2>() {
-    open fun initialize() { /* Empty */ }
-    open fun resume() { /* Empty */ }
-    open fun pause() { /* Empty */ }
-    open fun destroy() { /* Empty */ }
-
-    var view : T1? = null
-    var navigator : T2? = null
-}
+data class User (
+        val name: String = "",
+        val address: String = "",
+        val username: String = "",
+        val email: String = "",
+        val thumbnail: String = ""
+)

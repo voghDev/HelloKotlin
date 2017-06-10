@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.features.user.datasource
 
-class Configuration (map: Map<String, Any?>){
-    val width : Int by map
-    val height : Int by map
-    val dp : Int by map
-    val deviceName : String by map
+import es.voghdev.hellokotlin.features.user.usecase.GetUsers
+
+class GetUsersApiDataSource : GetUsers
+{
+
 }

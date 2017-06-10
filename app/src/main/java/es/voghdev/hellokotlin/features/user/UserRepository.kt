@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.features.user
 
+import es.voghdev.hellokotlin.domain.TimedCachePolicy
+import es.voghdev.hellokotlin.features.user.usecase.GetUsers
+import es.voghdev.hellokotlin.features.user.usecase.InsertUser
+import es.voghdev.hellokotlin.global.CachePolicy
 import java.util.*
 
 class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSource: GetUsers?, val insertUserApi: InsertUser?) : GetUsers, InsertUser {

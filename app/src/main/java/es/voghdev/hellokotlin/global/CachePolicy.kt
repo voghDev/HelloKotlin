@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.global
 
-data class User (
-        val name: String = "",
-        val address: String = "",
-        val username: String = "",
-        val email: String = "",
-        val thumbnail: String = ""
-)
+interface CachePolicy {
+    fun isCacheDirty() : Boolean {
+        return true // By default, cache policy is "always dirty"
+    }
+}

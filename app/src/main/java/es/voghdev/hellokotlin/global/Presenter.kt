@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin
+package es.voghdev.hellokotlin.global
 
-open class Invoice(
-        val customerId : Long,
-        val amount : Float
-) {
+abstract class Presenter<T1, T2>() {
+    open fun initialize() { /* Empty */ }
+    open fun resume() { /* Empty */ }
+    open fun pause() { /* Empty */ }
+    open fun destroy() { /* Empty */ }
 
-//    fun getAmount() : Float {
-//        return 10f
-//    }
+    var view : T1? = null
+    var navigator : T2? = null
 }
