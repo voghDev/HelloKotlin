@@ -22,11 +22,11 @@ import es.voghdev.hellokotlin.global.CachePolicy
 import java.util.*
 
 class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSource: GetUsers?, val insertUserApi: InsertUser?) : GetUsers, InsertUser {
-    var cachePolicy : CachePolicy? = null
-    var cache : MutableList<User> = ArrayList<User>()
+    var cachePolicy: CachePolicy? = null
+    var cache: MutableList<User> = ArrayList<User>()
 
     override fun getUsers(): List<User> {
-        if(cachePolicy?.isCacheDirty() ?: false)
+        if (cachePolicy?.isCacheDirty() ?: false)
             cache.clear()
 
         cache = getUsersApiDataSource?.getUsers() as MutableList<User>
@@ -37,5 +37,17 @@ class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSou
 
     override fun insertUser() {
         insertUserApi?.insertUser()
+    }
+
+    fun performSomeBlockingOperation() {
+        Thread.sleep(10)
+    }
+
+    fun performSomeBlockingOperationWithResult(): List<User> {
+        Thread.sleep(10)
+        return listOf(
+                User(name = "John doe", email = "john@mail.com"),
+                User(name = "Jane doe", email = "jane@mail.com")
+        )
     }
 }

@@ -16,6 +16,7 @@
 package es.voghdev.hellokotlin.features.user
 
 import android.content.Context
+import com.appandweb.peep.global.asyncTask
 import es.voghdev.hellokotlin.global.Presenter
 import org.jetbrains.anko.doAsync
 
@@ -33,9 +34,26 @@ class SomeDetailPresenter(val context: Context, val userRepository: UserReposito
         }
     }
 
+    suspend fun onSomeEventHappened() {
+        asyncTask {
+            userRepository.performSomeBlockingOperation()
+        }.await()
+
+        view?.showSomeResult()
+    }
+
+    suspend fun onSomeOtherEventHappened() {
+        asyncTask {
+            userRepository.performSomeBlockingOperationWithResult()
+        }.await().let { result ->
+            view?.showUsers(result)
+        }
+    }
+
     interface MVPView {
         fun showUsers(users: List<User>)
         fun showEmptyCase()
+        fun showSomeResult()
     }
 
     interface Navigator

@@ -52,4 +52,8 @@ class SomeDetailActivity : BaseActivity(),
     override fun showEmptyCase() {
         tvTitle.text = getString(R.string.no_results)
     }
+
+    override fun showSomeResult() {
+        tvTitle.text = "Ok, result has arrived"
+    }
 }
