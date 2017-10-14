@@ -3,6 +3,7 @@ package es.voghdev.hellokotlin
 import android.content.Context
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.whenever
+import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
 import es.voghdev.hellokotlin.features.user.User
 import es.voghdev.hellokotlin.features.user.UserRepository
@@ -11,6 +12,7 @@ import es.voghdev.hellokotlin.features.user.usecase.InsertUser
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -120,6 +122,27 @@ class SomeDetailPresenterTest {
         assertEquals(2, captor.firstValue.size)
         assertEquals("User 001", captor.firstValue[0].name)
         assertEquals("User 002", captor.firstValue[1].name)
+    }
+
+    @Test
+    fun `should call a method that contains a coroutine and verify assertions in the repository`() {
+        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
+        presenter.view = mockView
+
+        val invoice = Invoice(customerId = 15L, amount = 10f)
+
+        runBlocking {
+            presenter.onEventWithParameterHappened(invoice.customerId)
+        }
+
+        val captor = argumentCaptor<Invoice>()
+
+        verify(mockUserRepository).performSomeBlockingOperationWithAParameter(captor.capture())
+        verify(mockView).showSomeResult()
+
+        assertEquals(15L, captor.firstValue.customerId)
+        assertEquals(50f, captor.firstValue.amount)
+        assertNotEquals(10f, captor.firstValue.amount)
     }
 
     @Test

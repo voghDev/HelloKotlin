@@ -16,6 +16,8 @@
 package es.voghdev.hellokotlin.features.user
 
 import es.voghdev.hellokotlin.domain.TimedCachePolicy
+import es.voghdev.hellokotlin.features.order.Invoice
+import es.voghdev.hellokotlin.features.order.Order
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 import es.voghdev.hellokotlin.features.user.usecase.InsertUser
 import es.voghdev.hellokotlin.global.CachePolicy
@@ -49,5 +51,10 @@ class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSou
                 User(name = "John doe", email = "john@mail.com"),
                 User(name = "Jane doe", email = "jane@mail.com")
         )
+    }
+
+    fun performSomeBlockingOperationWithAParameter(invoice: Invoice) : Float {
+        Thread.sleep(10)
+        return invoice.amount
     }
 }
