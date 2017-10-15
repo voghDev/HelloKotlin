@@ -16,7 +16,7 @@
 package es.voghdev.hellokotlin.features.user
 
 import android.content.Context
-import com.appandweb.peep.global.asyncTask
+import com.appandweb.peep.global.coroutine
 import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.global.Presenter
 import org.jetbrains.anko.doAsync
@@ -36,7 +36,7 @@ class SomeDetailPresenter(val context: Context, val userRepository: UserReposito
     }
 
     suspend fun onSomeEventHappened() {
-        asyncTask {
+        coroutine {
             userRepository.performSomeBlockingOperation()
         }.await()
 
@@ -44,7 +44,7 @@ class SomeDetailPresenter(val context: Context, val userRepository: UserReposito
     }
 
     suspend fun onSomeOtherEventHappened() {
-        asyncTask {
+        coroutine {
             userRepository.performSomeBlockingOperationWithResult()
         }.await().let { result ->
             view?.showUsers(result)
@@ -52,7 +52,7 @@ class SomeDetailPresenter(val context: Context, val userRepository: UserReposito
     }
 
     suspend fun onEventWithParameterHappened(customerId: Long) {
-        asyncTask {
+        coroutine {
             userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
         }.await().let { result ->
             view?.showSomeResult()

@@ -51,6 +51,6 @@ suspend fun <T> asyncTask2(function: () -> T): T {
     return run(CommonPool) { function() }
 }
 
-fun <T> asyncTask(function: () -> T): Deferred<T> {
+fun <T> coroutine(function: () -> T): Deferred<T> {
     return async(CommonPool) { function() }
 }
