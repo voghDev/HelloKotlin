@@ -15,19 +15,6 @@
  */
 package es.voghdev.hellokotlin.global
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.run
-
-suspend fun <T> asyncTask(function: () -> T): T {
-    return run(CommonPool) { function() }
-}
-
-fun <T> coroutine(function: () -> T): Deferred<T> {
-    return async(CommonPool) { function() }
-}
-
 fun Any.await() {
     Thread.sleep(30)
 }

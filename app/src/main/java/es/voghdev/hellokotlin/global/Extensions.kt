@@ -47,7 +47,7 @@ fun Activity.color(resId: Int) : Int {
     return ContextCompat.getColor(this, resId)
 }
 
-suspend fun <T> asyncTask2(function: () -> T): T {
+suspend fun <T> asyncTask(function: () -> T): T {
     return run(CommonPool) { function() }
 }
 
