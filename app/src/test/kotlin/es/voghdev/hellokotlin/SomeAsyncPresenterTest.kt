@@ -20,6 +20,7 @@ import com.nhaarman.mockito_kotlin.*
 import es.voghdev.hellokotlin.domain.AsyncCall
 import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.features.async.SomeAsyncPresenter
+import es.voghdev.hellokotlin.global.await
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt
@@ -41,12 +42,16 @@ class SomeAsyncPresenterTest {
     @Mock lateinit var mockAsyncRepository: AsyncCall
     @Mock lateinit var mockListener: AsyncCall.Listener
 
+    lateinit var presenter : SomeAsyncPresenter
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+
+        presenter = createMockedPresenter()
     }
 
-    private fun givenAMockedPresenter(): SomeAsyncPresenter {
+    private fun createMockedPresenter(): SomeAsyncPresenter {
         val presenter = SomeAsyncPresenter(mockContext, mockAsyncRepository)
         presenter.view = mockView
         presenter.navigator = mockNavigator
@@ -55,8 +60,6 @@ class SomeAsyncPresenterTest {
 
     @Test
     fun `should show loading on start`() {
-        val presenter = givenAMockedPresenter()
-
         presenter.initialize()
 
         verify(mockView).showLoading()
@@ -66,11 +69,7 @@ class SomeAsyncPresenterTest {
     fun `should show success on start if Repository returns success`() {
         givenADataSourceReturningSuccess(mockListener)
 
-        val presenter = givenAMockedPresenter()
-
-        presenter.initialize()
-
-        waitForAsyncBlocksToFinish()
+        presenter.initialize().await()
 
         verify(mockView).showSuccess(anyString())
     }
@@ -79,11 +78,7 @@ class SomeAsyncPresenterTest {
     fun `should show error on start if Repository returns error`() {
         givenADataSourceReturningFailure(mockListener)
 
-        val presenter = givenAMockedPresenter()
-
-        presenter.initialize()
-
-        waitForAsyncBlocksToFinish()
+        presenter.initialize().await()
 
         verify(mockView).showError(anyString())
     }
@@ -91,8 +86,6 @@ class SomeAsyncPresenterTest {
     @Test
     fun `should show a sample name when data is received (using mockito-kotlin thenReturn)`() {
         whenever(mockContext.getString(anyInt(), anyString())).thenReturn("Name is Bob")
-
-        val presenter = givenAMockedPresenter()
 
         val data = SampleData(id = 4L, name = "Bob")
 
@@ -106,7 +99,8 @@ class SomeAsyncPresenterTest {
         mockContext = mock<Context> {
             on { getString(anyInt(), anyString()) } doReturn "Name is Martin"
         }
-        val presenter = givenAMockedPresenter()
+
+        presenter = createMockedPresenter()
 
         val data = SampleData(id = 5L, name = "Martin")
 
@@ -131,9 +125,5 @@ class SomeAsyncPresenterTest {
             callback.onFailure(Exception("Nope :-/"))
             null
         }.`when`(mockAsyncRepository).execute(any())
-    }
-
-    protected fun waitForAsyncBlocksToFinish() {
-        Thread.sleep(30)
     }
 }

@@ -9,6 +9,7 @@ import es.voghdev.hellokotlin.features.user.User
 import es.voghdev.hellokotlin.features.user.UserRepository
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 import es.voghdev.hellokotlin.features.user.usecase.InsertUser
+import es.voghdev.hellokotlin.global.await
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Assert.assertEquals
@@ -38,62 +39,46 @@ class SomeDetailPresenterTest {
     @Mock
     lateinit var mockInsertUser: InsertUser
 
+    lateinit var presenter: SomeDetailPresenter
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        presenter = SomeDetailPresenter(mockContext, mockUserRepository)
+        presenter.view = mockView
     }
 
     @Test
     fun `should request a List of users on start`() {
-        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
-
         assertNotNull(presenter)
 
-        presenter.view = mockView
-        presenter.initialize()
-
-        waitForAsyncBlocksToFinish()
+        presenter.initialize().await()
 
         verify(mockUserRepository, times(1))?.getUsers()
     }
 
-    private fun waitForAsyncBlocksToFinish() {
-        Thread.sleep(30)
-    }
-
     @Test
     fun `should show user list if request has results`() {
-        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
-        `when`(mockUserRepository.getUsers()).thenReturn(listOf(User(name = "John")))
+        whenever(mockUserRepository.getUsers()).thenReturn(listOf(User(name = "John")))
+
         assertNotNull(presenter)
 
-        presenter.view = mockView
-        presenter.initialize()
-
-        waitForAsyncBlocksToFinish()
+        presenter.initialize().await()
 
         verify(mockView, times(1))?.showUsers(anyList())
     }
 
     @Test
     fun `should show empty case if request has no results`() {
-        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
-
         assertNotNull(presenter)
 
-        presenter.view = mockView
-        presenter.initialize()
-
-        waitForAsyncBlocksToFinish()
+        presenter.initialize().await()
 
         verify(mockView, times(1))?.showEmptyCase()
     }
 
     @Test
     fun `should call a simple method containing a coroutine in runBlocking mode`() {
-        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
-        presenter.view = mockView
-
         runBlocking {
             presenter.onSomeEventHappened()
         }
@@ -103,9 +88,6 @@ class SomeDetailPresenterTest {
 
     @Test
     fun `should call a method that contains a coroutine and returns a result using runBlocking`() {
-        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
-        presenter.view = mockView
-
         whenever(mockUserRepository.performSomeBlockingOperationWithResult()).thenReturn(listOf(
                 User(name = "User 001"),
                 User(name = "User 002")
@@ -126,8 +108,7 @@ class SomeDetailPresenterTest {
 
     @Test
     fun `should call a method that contains a coroutine and verify assertions in the repository`() {
-        val presenter = SomeDetailPresenter(mockContext, mockUserRepository)
-        presenter.view = mockView
+
 
         val invoice = Invoice(customerId = 15L, amount = 10f)
 

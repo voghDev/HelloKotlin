@@ -16,9 +16,9 @@
 package es.voghdev.hellokotlin.features.user
 
 import android.content.Context
-import com.appandweb.peep.global.coroutine
 import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.global.Presenter
+import es.voghdev.hellokotlin.global.coroutine
 import org.jetbrains.anko.doAsync
 
 class SomeDetailPresenter(val context: Context, val userRepository: UserRepository) :
