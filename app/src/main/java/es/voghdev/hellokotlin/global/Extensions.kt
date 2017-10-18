@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.appandweb.peep.global
+package es.voghdev.hellokotlin.global
 
 import android.app.Activity
 import android.support.v4.content.ContextCompat
