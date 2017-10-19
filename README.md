@@ -18,7 +18,7 @@ In this repository, we will work on the following aspects of Kotlin
 - [X] Add mockito-kotlin to clean Mockito boilerplate in tests
 - [ ] Implement some tests with kotlintest to see how it improves readability
 - [X] Add some example usage of Kotlin Coroutines to understand how they work
-- [X] Use Coroutines in tests with Anko (async/doAsync) and kotlinx.coroutines
+- [X] Use Coroutines in tests with kotlinx.coroutines and Anko async/doAsync blocks
 
 [kotlinLogo]: ./images/kotlin.png
 [1]: https://posts.google.com/share/JWxzxRt3
