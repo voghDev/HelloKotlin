@@ -21,6 +21,8 @@ import es.voghdev.hellokotlin.domain.AsyncCall
 import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.features.async.SomeAsyncPresenter
 import es.voghdev.hellokotlin.global.await
+import es.voghdev.hellokotlin.global.given
+import es.voghdev.hellokotlin.global.hasString
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt
@@ -107,6 +109,15 @@ class SomeAsyncPresenterTest {
         presenter.onDataReceived(data)
 
         verify(mockView).showName(anyString())
+    }
+
+    @Test
+    fun `should be able to mock a string using given and hasString operators`() {
+        given(mockContext).hasString(R.string.app_name, "Example App")
+
+        presenter.onFailureNotified()
+
+        verify(mockView).showError("Error: Example App")
     }
 
     protected fun givenADataSourceReturningSuccess(listener: AsyncCall.Listener) {
