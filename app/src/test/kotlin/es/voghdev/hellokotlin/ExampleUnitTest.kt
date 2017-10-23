@@ -16,10 +16,10 @@
 package es.voghdev.hellokotlin
 
 import es.voghdev.hellokotlin.domain.model.Configuration
+import es.voghdev.hellokotlin.global.startsWithUppercaseLetter
 import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Test
 import java.util.concurrent.Executors
 
@@ -131,7 +131,7 @@ class ExampleUnitTest {
     }
 
     inline fun sampleInline(code: () -> Unit) {
-        if( 1 == 1 ) {
+        if (1 == 1) {
             code()
         }
     }
@@ -159,5 +159,15 @@ class ExampleUnitTest {
 
         assertNotNull(conf)
         assertEquals(1080, conf.width)
+    }
+
+    @Test
+    fun `should calculate properly if some strings start with an uppercase letter`() {
+        assertFalse("lowerCaseString".startsWithUppercaseLetter())
+        assertTrue("This is a String".startsWithUppercaseLetter())
+        assertFalse("1234 Starts with a number".startsWithUppercaseLetter())
+        assertFalse("".startsWithUppercaseLetter())
+        assertFalse(" ".startsWithUppercaseLetter())
+        assertFalse("_".startsWithUppercaseLetter())
     }
 }

@@ -22,6 +22,7 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.run
+import java.util.regex.Pattern
 
 /**
  * Returns screen Width, using the display metrics
@@ -53,4 +54,8 @@ suspend fun <T> asyncTask(function: () -> T): T {
 
 fun <T> coroutine(function: () -> T): Deferred<T> {
     return async(CommonPool) { function() }
+}
+
+fun String.startsWithUppercaseLetter() : Boolean {
+    return this.matches(Regex("[A-Z]{1}.*"))
 }
