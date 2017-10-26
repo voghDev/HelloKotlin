@@ -15,7 +15,11 @@
  */
 package es.voghdev.hellokotlin
 
+import es.voghdev.hellokotlin.domain.Just
+import es.voghdev.hellokotlin.domain.None
+import es.voghdev.hellokotlin.domain.Option
 import es.voghdev.hellokotlin.domain.model.Configuration
+import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.global.startsWithUppercaseLetter
 import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
@@ -63,6 +67,7 @@ class ExampleUnitTest {
     @Test
     fun shouldExecuteAsyncBlocks() {
         val executor = Executors.newScheduledThreadPool(1)
+
         async(executor) {
             println("This is async(). It is deprecated")
         }
@@ -169,5 +174,22 @@ class ExampleUnitTest {
         assertFalse("".startsWithUppercaseLetter())
         assertFalse(" ".startsWithUppercaseLetter())
         assertFalse("_".startsWithUppercaseLetter())
+    }
+
+    @Test
+    fun `should be able to create an instance of an option class with the positive case`() {
+        val invoice = Invoice(10L, 5f)
+
+        val option : Option<Invoice> = Just(invoice)
+
+        assertNotNull(option)
+    }
+
+    @Test
+    fun `should be able to create an instance of an option class with the absence of object case`() {
+        val option = None
+
+        assertNotNull(option)
+        assertTrue(option is Option<Nothing>)
     }
 }
