@@ -65,15 +65,6 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun shouldExecuteAsyncBlocks() {
-        val executor = Executors.newScheduledThreadPool(1)
-
-        async(executor) {
-            println("This is async(). It is deprecated")
-        }
-    }
-
-    @Test
     fun shouldExecuteAsyncBlocksUsingDoAsync() {
         doAsync {
             println("This is doAsync(). It belongs to Anko")
