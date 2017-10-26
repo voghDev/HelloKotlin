@@ -18,6 +18,7 @@ package es.voghdev.hellokotlin.features.user
 import android.os.Bundle
 import android.os.PersistableBundle
 import es.voghdev.hellokotlin.R
+import es.voghdev.hellokotlin.domain.AndroidResLocator
 import es.voghdev.hellokotlin.features.user.datasource.GetUsersApiDataSource
 import es.voghdev.hellokotlin.features.user.datasource.GetUsersDBDataSource
 import es.voghdev.hellokotlin.features.user.datasource.InsertUserApiDataSource
@@ -26,10 +27,6 @@ import kotlinx.android.synthetic.main.activity_some_detail.*
 
 class SomeDetailActivity : BaseActivity(),
         SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator {
-    override fun getLayoutId(): Int {
-        return R.layout.activity_some_detail
-    }
-
     var presenter: SomeDetailPresenter? = null
     lateinit var userRepository: UserRepository
 
@@ -39,10 +36,14 @@ class SomeDetailActivity : BaseActivity(),
                 getUsersDbDataSource = GetUsersDBDataSource(),
                 insertUserApi = InsertUserApiDataSource())
 
-        presenter = SomeDetailPresenter(this, userRepository)
+        presenter = SomeDetailPresenter(AndroidResLocator(this), userRepository)
         presenter?.initialize()
         presenter?.view = this
         presenter?.navigator = this
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_some_detail
     }
 
     override fun showUsers(users: List<User>) {
@@ -55,5 +56,9 @@ class SomeDetailActivity : BaseActivity(),
 
     override fun showSomeResult() {
         tvTitle.text = "Ok, result has arrived"
+    }
+
+    override fun showTitle(title: String) {
+        tvTitle.text = title
     }
 }

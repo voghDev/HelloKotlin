@@ -3,6 +3,7 @@ package es.voghdev.hellokotlin
 import android.content.Context
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.whenever
+import es.voghdev.hellokotlin.domain.AndroidResLocator
 import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
 import es.voghdev.hellokotlin.features.user.User
@@ -44,12 +45,15 @@ class SomeDetailPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = SomeDetailPresenter(mockContext, mockUserRepository)
+
+        presenter = SomeDetailPresenter(AndroidResLocator(mockContext), mockUserRepository)
         presenter.view = mockView
     }
 
     @Test
     fun `should request a List of users on start`() {
+        givenAllStringsAreMocked()
+
         assertNotNull(presenter)
 
         presenter.initialize().await()
@@ -59,6 +63,8 @@ class SomeDetailPresenterTest {
 
     @Test
     fun `should show user list if request has results`() {
+        givenAllStringsAreMocked()
+
         whenever(mockUserRepository.getUsers()).thenReturn(listOf(User(name = "John")))
 
         assertNotNull(presenter)
@@ -70,6 +76,8 @@ class SomeDetailPresenterTest {
 
     @Test
     fun `should show empty case if request has no results`() {
+        givenAllStringsAreMocked()
+
         assertNotNull(presenter)
 
         presenter.initialize().await()
@@ -108,8 +116,6 @@ class SomeDetailPresenterTest {
 
     @Test
     fun `should call a method that contains a coroutine and verify assertions in the repository`() {
-
-
         val invoice = Invoice(customerId = 15L, amount = 10f)
 
         runBlocking {
@@ -130,7 +136,7 @@ class SomeDetailPresenterTest {
     fun `should call a method that contains a coroutine using a non-mocked repository with mock DataSources`() {
         val nonMockedRepository = UserRepository(mockGetUsersApi, mockGetUsersDb, mockInsertUser)
 
-        val presenter = SomeDetailPresenter(mockContext, nonMockedRepository)
+        val presenter = SomeDetailPresenter(AndroidResLocator(mockContext), nonMockedRepository)
         presenter.view = mockView
 
         runBlocking {
@@ -144,5 +150,9 @@ class SomeDetailPresenterTest {
         assertEquals(2, captor.firstValue.size)
         assertEquals("John doe", captor.firstValue[0].name)
         assertEquals("Jane doe", captor.firstValue[1].name)
+    }
+
+    private fun givenAllStringsAreMocked() {
+        whenever(mockContext.getString(R.string.tech_debt_is_paid)).thenReturn("Relax man, I pay my tech debt!")
     }
 }

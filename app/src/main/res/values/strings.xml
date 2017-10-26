@@ -3,4 +3,5 @@
     <string name="no_results">No results</string>
     <string name="users_found_param">%1$d users found</string>
     <string name="name_is">Name is: %1$s</string>
+    <string name="tech_debt_is_paid">Man, I pay my tech debt, I said!</string>
 </resources>

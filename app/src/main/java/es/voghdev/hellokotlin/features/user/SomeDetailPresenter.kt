@@ -15,23 +15,28 @@
  */
 package es.voghdev.hellokotlin.features.user
 
-import android.content.Context
+import es.voghdev.hellokotlin.R
+import es.voghdev.hellokotlin.domain.ResLocator
 import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.global.Presenter
 import es.voghdev.hellokotlin.global.coroutine
 import org.jetbrains.anko.doAsync
 
-class SomeDetailPresenter(val context: Context, val userRepository: UserRepository) :
+class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRepository) :
         Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
 
     override fun initialize() {
-        doAsync() {
+        val title = resLocator.getString(R.string.tech_debt_is_paid)
+        view?.showTitle(title)
+
+        doAsync {
             val users = userRepository.getUsers()
 
             if (users.isNotEmpty())
                 view?.showUsers(users)
             else
                 view?.showEmptyCase()
+
         }
     }
 
@@ -63,7 +68,10 @@ class SomeDetailPresenter(val context: Context, val userRepository: UserReposito
         fun showUsers(users: List<User>)
         fun showEmptyCase()
         fun showSomeResult()
+        fun showTitle(title: String)
     }
 
-    interface Navigator
+    interface Navigator {
+
+    }
 }
