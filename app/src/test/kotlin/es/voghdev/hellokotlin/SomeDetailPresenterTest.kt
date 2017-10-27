@@ -4,6 +4,7 @@ import android.content.Context
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.hellokotlin.domain.AndroidResLocator
+import es.voghdev.hellokotlin.domain.ResLocator
 import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
 import es.voghdev.hellokotlin.features.user.User
@@ -25,8 +26,7 @@ class SomeDetailPresenterTest {
     @Mock
     lateinit var mockUserRepository: UserRepository
 
-    @Mock
-    lateinit var mockContext: Context
+    @Mock lateinit var mockResLocator : ResLocator
 
     @Mock
     lateinit var mockView: SomeDetailPresenter.MVPView
@@ -46,7 +46,7 @@ class SomeDetailPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = SomeDetailPresenter(AndroidResLocator(mockContext), mockUserRepository)
+        presenter = SomeDetailPresenter(mockResLocator, mockUserRepository)
         presenter.view = mockView
     }
 
@@ -136,7 +136,7 @@ class SomeDetailPresenterTest {
     fun `should call a method that contains a coroutine using a non-mocked repository with mock DataSources`() {
         val nonMockedRepository = UserRepository(mockGetUsersApi, mockGetUsersDb, mockInsertUser)
 
-        val presenter = SomeDetailPresenter(AndroidResLocator(mockContext), nonMockedRepository)
+        val presenter = SomeDetailPresenter(mockResLocator, nonMockedRepository)
         presenter.view = mockView
 
         runBlocking {
@@ -153,6 +153,6 @@ class SomeDetailPresenterTest {
     }
 
     private fun givenAllStringsAreMocked() {
-        whenever(mockContext.getString(R.string.tech_debt_is_paid)).thenReturn("Relax man, I pay my tech debt!")
+        whenever(mockResLocator.getString(R.string.tech_debt_is_paid)).thenReturn("Relax man, I pay my tech debt!")
     }
 }
