@@ -21,13 +21,15 @@ import es.voghdev.hellokotlin.domain.Option
 import es.voghdev.hellokotlin.domain.model.Configuration
 import es.voghdev.hellokotlin.features.order.Invoice
 import es.voghdev.hellokotlin.global.startsWithUppercaseLetter
-import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.concurrent.Executors
 
 class ExampleUnitTest {
+    val textWithThreeLines = """Text in
+three lines
+should have two carriage returns """.trimIndent()
+
     @Test
     @Throws(Exception::class)
     fun addition_isCorrect() {
@@ -171,7 +173,7 @@ class ExampleUnitTest {
     fun `should be able to create an instance of an option class with the positive case`() {
         val invoice = Invoice(10L, 5f)
 
-        val option : Option<Invoice> = Just(invoice)
+        val option: Option<Invoice> = Just(invoice)
 
         assertNotNull(option)
     }
@@ -182,5 +184,36 @@ class ExampleUnitTest {
 
         assertNotNull(option)
         assertTrue(option is Option<Nothing>)
+    }
+
+    @Test
+    fun `should pass this test with curious stuff from Kotlin`() {
+        val text = """Text in
+            two lines """.trimIndent()
+
+        assertTrue(text.contains("\n"))
+    }
+
+    @Test
+    fun `should count two carriage returns in text with three lines`() {
+        val map = textWithThreeLines.map { it }
+
+        val filtered = map.filter { it.equals('\n') }
+
+        val count = filtered.count()
+
+        assertNotNull(filtered)
+
+        assertEquals(2, count)
+    }
+
+    @Test
+    fun `should do the same as previous in a more compact, FP-like version`() {
+        val count = textWithThreeLines
+                .map { it }
+                .filter { it.equals('\n') }
+                .count()
+
+        assertEquals(2, count)
     }
 }
