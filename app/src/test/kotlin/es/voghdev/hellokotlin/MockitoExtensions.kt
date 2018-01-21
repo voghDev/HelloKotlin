@@ -22,7 +22,7 @@ fun Any.await() {
     Thread.sleep(30)
 }
 
-fun <T> given(t: T) : T {
+fun <T> given(t: T): T {
     return t
 }
 

@@ -17,7 +17,6 @@ package es.voghdev.hellokotlin.features.user.datasource
 
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 
-class GetUsersApiDataSource : GetUsers
-{
+class GetUsersApiDataSource : GetUsers {
 
 }

@@ -31,7 +31,7 @@ class FilteringOperatorsTest {
         val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
         assertEquals(5, list.filterNot { it % 2 == 0 }.size)
-        assertEquals(listOf(1,3,5,7,9), list.filterNot { it % 2 == 0 })
+        assertEquals(listOf(1, 3, 5, 7, 9), list.filterNot { it % 2 == 0 })
     }
 
     @Test
@@ -47,6 +47,6 @@ class FilteringOperatorsTest {
     fun `"takeWhile" operator extracts element while a condition is satisfied`() {
         val list = listOf("Spain", "Portugal", "France", "Morocco", "Belgium")
 
-         list.takeWhile { it.length > 5 }
+        list.takeWhile { it.length > 5 }
     }
 }

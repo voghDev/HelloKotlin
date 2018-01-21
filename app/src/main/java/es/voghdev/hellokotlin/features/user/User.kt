@@ -15,7 +15,7 @@
  */
 package es.voghdev.hellokotlin.features.user
 
-data class User (
+data class User(
         val name: String = "",
         val address: String = "",
         val username: String = "",

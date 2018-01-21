@@ -48,7 +48,7 @@ class UserRepository(val getUsersApiDataSource: GetUsers, val getUsersDbDataSour
         )
     }
 
-    fun performSomeBlockingOperationWithAParameter(invoice: Invoice) : Float {
+    fun performSomeBlockingOperationWithAParameter(invoice: Invoice): Float {
         Thread.sleep(10)
         return invoice.amount
     }

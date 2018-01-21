@@ -44,7 +44,7 @@ class SomeAsyncPresenterTest {
     @Mock lateinit var mockAsyncRepository: AsyncCall
     @Mock lateinit var mockListener: AsyncCall.Listener
 
-    lateinit var presenter : SomeAsyncPresenter
+    lateinit var presenter: SomeAsyncPresenter
 
     @Before
     fun setUp() {

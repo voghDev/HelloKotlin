@@ -22,7 +22,6 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.run
-import java.util.regex.Pattern
 
 /**
  * Returns screen Width, using the display metrics
@@ -44,7 +43,7 @@ fun Activity.screenHeight(): Int {
     return metrics.heightPixels
 }
 
-fun Activity.color(resId: Int) : Int {
+fun Activity.color(resId: Int): Int {
     return ContextCompat.getColor(this, resId)
 }
 
@@ -56,6 +55,6 @@ fun <T> coroutine(function: () -> T): Deferred<T> {
     return async(CommonPool) { function() }
 }
 
-fun String.startsWithUppercaseLetter() : Boolean {
+fun String.startsWithUppercaseLetter(): Boolean {
     return this.matches(Regex("[A-Z]{1}.*"))
 }

@@ -1,9 +1,7 @@
 package es.voghdev.hellokotlin
 
-import android.content.Context
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.whenever
-import es.voghdev.hellokotlin.domain.AndroidResLocator
 import es.voghdev.hellokotlin.domain.ResLocator
 import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
@@ -26,7 +24,7 @@ class SomeDetailPresenterTest {
     @Mock
     lateinit var mockUserRepository: UserRepository
 
-    @Mock lateinit var mockResLocator : ResLocator
+    @Mock lateinit var mockResLocator: ResLocator
 
     @Mock
     lateinit var mockView: SomeDetailPresenter.MVPView

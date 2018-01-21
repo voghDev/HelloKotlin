@@ -16,7 +16,7 @@
 package es.voghdev.hellokotlin.global
 
 interface CachePolicy {
-    fun isCacheDirty() : Boolean {
+    fun isCacheDirty(): Boolean {
         return true // By default, cache policy is "always dirty"
     }
 }

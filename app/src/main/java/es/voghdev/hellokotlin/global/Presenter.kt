@@ -16,11 +16,18 @@
 package es.voghdev.hellokotlin.global
 
 abstract class Presenter<T1, T2>() {
-    open fun initialize() { /* Empty */ }
-    open fun resume() { /* Empty */ }
-    open fun pause() { /* Empty */ }
-    open fun destroy() { /* Empty */ }
+    open fun initialize() { /* Empty */
+    }
 
-    var view : T1? = null
-    var navigator : T2? = null
+    open fun resume() { /* Empty */
+    }
+
+    open fun pause() { /* Empty */
+    }
+
+    open fun destroy() { /* Empty */
+    }
+
+    var view: T1? = null
+    var navigator: T2? = null
 }

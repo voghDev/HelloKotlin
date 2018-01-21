@@ -16,7 +16,7 @@
 package es.voghdev.hellokotlin.domain
 
 interface AsyncCall {
-    fun execute(listener : Listener) {}
+    fun execute(listener: Listener) {}
 
     interface Listener {
         fun onSuccess(result: String)

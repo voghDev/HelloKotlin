@@ -15,4 +15,4 @@
  */
 package es.voghdev.hellokotlin.domain.model
 
-class SampleData (val id : Long, val name : String)
+class SampleData(val id: Long, val name: String)

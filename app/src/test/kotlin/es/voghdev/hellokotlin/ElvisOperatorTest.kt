@@ -29,16 +29,16 @@ class ElvisOperatorTest() {
 
     @Test
     fun `should use elvis operator with a null array`() {
-        val users : List<User>? = null
+        val users: List<User>? = null
 
         val result = "${users?.size ?: "No"} users"
 
         assertEquals("No users", result)
     }
-    
+
     @Test
     fun `should use elvis operator with a non-null array`() {
-        val users : List<User>? = listOf(
+        val users: List<User>? = listOf(
                 User(name = "John"),
                 User(name = "Anne")
         )

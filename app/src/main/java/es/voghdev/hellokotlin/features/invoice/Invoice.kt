@@ -16,8 +16,8 @@
 package es.voghdev.hellokotlin.features.invoice
 
 open class Invoice(
-        val customerId : Long,
-        val amount : Float
+        val customerId: Long,
+        val amount: Float
 ) {
 
 //    fun getAmount() : Float {

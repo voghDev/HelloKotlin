@@ -28,13 +28,13 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 
-class BasicMockitoTest(){
+class BasicMockitoTest() {
 
-    @Captor val argumentCaptor : ArgumentCaptor<Float>? = null
+    @Captor val argumentCaptor: ArgumentCaptor<Float>? = null
 
-    @Mock val mockUser : User? = null
+    @Mock val mockUser: User? = null
 
-    @Before fun setUp(){
+    @Before fun setUp() {
         MockitoAnnotations.initMocks(this)
     }
 
