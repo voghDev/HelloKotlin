@@ -22,7 +22,10 @@ import es.voghdev.hellokotlin.domain.model.Configuration
 import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.startsWithUppercaseLetter
 import org.jetbrains.anko.doAsync
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class ExampleUnitTest {
@@ -75,7 +78,7 @@ should have two carriage returns """.trimIndent()
 
     @Test
     fun incAndDecShouldWork() {
-        val a = 5;
+        val a = 5
 
         assertEquals(6, a.inc())
         assertEquals(4, a.dec())
@@ -139,11 +142,6 @@ should have two carriage returns """.trimIndent()
         sampleInline {
             println("printed in an inline function")
         }
-    }
-
-    @Test
-    fun `should verify inside an asynchronous call`() {
-
     }
 
     @Test

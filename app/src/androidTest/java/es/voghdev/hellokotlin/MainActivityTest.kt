@@ -28,5 +28,4 @@ class MainActivityTest {
     fun shouldClickEditText() {
         onView(withId(R.id.editText1)).perform(click())
     }
-
 }

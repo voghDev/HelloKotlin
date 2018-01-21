@@ -20,7 +20,6 @@ import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 import es.voghdev.hellokotlin.features.user.usecase.InsertUser
 import es.voghdev.hellokotlin.global.CachePolicy
-import java.util.*
 
 class UserRepository(val getUsersApiDataSource: GetUsers, val getUsersDbDataSource: GetUsers, val insertUserApiDataSource: InsertUser) : GetUsers, InsertUser by insertUserApiDataSource {
     var cachePolicy: CachePolicy? = null
@@ -30,7 +29,7 @@ class UserRepository(val getUsersApiDataSource: GetUsers, val getUsersDbDataSour
         if (cachePolicy?.isCacheDirty() ?: false)
             cache.clear()
 
-        cache = getUsersApiDataSource?.getUsers() as MutableList<User>
+        cache = getUsersApiDataSource.getUsers() as MutableList<User>
         cachePolicy = TimedCachePolicy(15000)
 
         return cache

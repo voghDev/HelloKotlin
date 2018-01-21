@@ -32,11 +32,7 @@ class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRe
         doAsync {
             val users = userRepository.getUsers()
 
-            if (users.isNotEmpty())
-                view?.showUsers(users)
-            else
-                view?.showEmptyCase()
-
+            if (users.isNotEmpty()) view?.showUsers(users) else view?.showEmptyCase()
         }
     }
 
@@ -59,7 +55,7 @@ class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRe
     suspend fun onEventWithParameterHappened(customerId: Long) {
         coroutine {
             userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
-        }.await().let { result ->
+        }.await().let { _ ->
             view?.showSomeResult()
         }
     }
@@ -71,7 +67,5 @@ class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRe
         fun showTitle(title: String)
     }
 
-    interface Navigator {
-
-    }
+    interface Navigator
 }

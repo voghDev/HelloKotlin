@@ -16,7 +16,7 @@
 package es.voghdev.hellokotlin.features.user.usecase
 
 import es.voghdev.hellokotlin.features.user.User
-import java.util.*
+import java.util.Collections
 
 interface GetUsers {
     fun getUsers(): List<User> {

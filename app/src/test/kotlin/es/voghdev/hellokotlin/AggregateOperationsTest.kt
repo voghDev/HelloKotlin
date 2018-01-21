@@ -16,7 +16,9 @@
 package es.voghdev.hellokotlin
 
 import es.voghdev.hellokotlin.features.invoice.Invoice
-import junit.framework.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AggregateOperationsTest {
@@ -57,10 +59,7 @@ class AggregateOperationsTest {
 
         assertEquals("Lord Of The Rings", list.foldRightIndexed("") {
             index, total, next ->
-            if (index < 3)
-                total + " " + next
-            else
-                total + next
+            if (index < 3) total + " " + next else total + next
         })
     }
 

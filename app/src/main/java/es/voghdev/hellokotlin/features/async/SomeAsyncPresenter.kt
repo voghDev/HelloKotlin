@@ -45,7 +45,7 @@ class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
     fun onFailureNotified() {
         val appName = context.getString(R.string.app_name)
 
-        view?.showError("Error: ${appName}")
+        view?.showError("Error: $appName")
     }
 
     interface MVPView {
@@ -55,7 +55,5 @@ class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
         fun showName(name: String)
     }
 
-    interface Navigator {
-
-    }
+    interface Navigator
 }

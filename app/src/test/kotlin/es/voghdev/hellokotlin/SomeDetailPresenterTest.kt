@@ -1,3 +1,4 @@
+
 package es.voghdev.hellokotlin
 
 import com.nhaarman.mockito_kotlin.argumentCaptor
@@ -16,8 +17,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 class SomeDetailPresenterTest {
