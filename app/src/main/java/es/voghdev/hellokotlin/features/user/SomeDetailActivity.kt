@@ -34,7 +34,7 @@ class SomeDetailActivity : BaseActivity(),
         userRepository = UserRepository(
                 getUsersApiDataSource = GetUsersApiDataSource(),
                 getUsersDbDataSource = GetUsersDBDataSource(),
-                insertUserApi = InsertUserApiDataSource())
+                insertUserApiDataSource = InsertUserApiDataSource())
 
         presenter = SomeDetailPresenter(AndroidResLocator(this), userRepository)
         presenter?.initialize()
