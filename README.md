@@ -9,7 +9,7 @@ Since [Google I/O 2017][1], Kotlin is [officially supported][2] by Google For An
 
 In this repository, we will work on the following aspects of Kotlin
 
-- [ ] Apply checkstyle to a Kotlin project and see how it works
+- [X] Apply Ktlint to a Kotlin project and see how it works
 - [X] Implement some basic instrumentation Tests with Kotlin
 - [X] Use a package-by-feature structure instead of package-by-layer
 - [X] Create a basic architecture using MVP or MVVM
