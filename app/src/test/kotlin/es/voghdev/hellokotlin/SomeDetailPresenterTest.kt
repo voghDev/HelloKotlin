@@ -5,7 +5,7 @@ import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.hellokotlin.domain.AndroidResLocator
 import es.voghdev.hellokotlin.domain.ResLocator
-import es.voghdev.hellokotlin.features.order.Invoice
+import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
 import es.voghdev.hellokotlin.features.user.User
 import es.voghdev.hellokotlin.features.user.UserRepository

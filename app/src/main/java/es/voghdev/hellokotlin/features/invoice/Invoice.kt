@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.voghdev.hellokotlin.features.product
+package es.voghdev.hellokotlin.features.invoice
 
-object ProductTable {
-    val NAME = "Product"
-    val ID = "_id"
-    val DESCRIPTION = "description"
-    val BRAND = "brand"
+open class Invoice(
+        val customerId : Long,
+        val amount : Float
+) {
+
+//    fun getAmount() : Float {
+//        return 10f
+//    }
 }

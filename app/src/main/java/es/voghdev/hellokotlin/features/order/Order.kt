@@ -1,5 +1,6 @@
 package es.voghdev.hellokotlin.features.order
 
+import es.voghdev.hellokotlin.features.invoice.Invoice
 import kotlin.properties.Delegates
 
 class Order {

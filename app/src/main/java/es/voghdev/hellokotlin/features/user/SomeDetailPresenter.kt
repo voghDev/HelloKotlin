@@ -17,7 +17,7 @@ package es.voghdev.hellokotlin.features.user
 
 import es.voghdev.hellokotlin.R
 import es.voghdev.hellokotlin.domain.ResLocator
-import es.voghdev.hellokotlin.features.order.Invoice
+import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.Presenter
 import es.voghdev.hellokotlin.global.coroutine
 import org.jetbrains.anko.doAsync

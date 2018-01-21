@@ -15,7 +15,7 @@
  */
 package es.voghdev.hellokotlin
 
-import es.voghdev.hellokotlin.features.order.Invoice
+import es.voghdev.hellokotlin.features.invoice.Invoice
 import junit.framework.Assert.*
 import org.junit.Test
 

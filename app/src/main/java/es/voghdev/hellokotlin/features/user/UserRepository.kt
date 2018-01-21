@@ -16,14 +16,13 @@
 package es.voghdev.hellokotlin.features.user
 
 import es.voghdev.hellokotlin.domain.TimedCachePolicy
-import es.voghdev.hellokotlin.features.order.Invoice
-import es.voghdev.hellokotlin.features.order.Order
+import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 import es.voghdev.hellokotlin.features.user.usecase.InsertUser
 import es.voghdev.hellokotlin.global.CachePolicy
 import java.util.*
 
-class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSource: GetUsers?, val insertUserApi: InsertUser?) : GetUsers, InsertUser {
+class UserRepository(val getUsersApiDataSource: GetUsers, val getUsersDbDataSource: GetUsers, val insertUserApiDataSource: InsertUser) : GetUsers, InsertUser by insertUserApiDataSource {
     var cachePolicy: CachePolicy? = null
     var cache: MutableList<User> = ArrayList<User>()
 
@@ -35,10 +34,6 @@ class UserRepository(val getUsersApiDataSource: GetUsers?, val getUsersDbDataSou
         cachePolicy = TimedCachePolicy(15000)
 
         return cache
-    }
-
-    override fun insertUser() {
-        insertUserApi?.insertUser()
     }
 
     fun performSomeBlockingOperation() {

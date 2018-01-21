@@ -19,7 +19,7 @@ import es.voghdev.hellokotlin.domain.Just
 import es.voghdev.hellokotlin.domain.None
 import es.voghdev.hellokotlin.domain.Option
 import es.voghdev.hellokotlin.domain.model.Configuration
-import es.voghdev.hellokotlin.features.order.Invoice
+import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.startsWithUppercaseLetter
 import org.jetbrains.anko.doAsync
 import org.junit.Assert.*
