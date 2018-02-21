@@ -84,8 +84,6 @@ gen/
 
 # Gradle files
 .gradle/
-gradlew.bat
-gradlew
 build/
 gradle.properties
 
