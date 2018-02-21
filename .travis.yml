@@ -1,0 +1,18 @@
+language: android
+
+jdk:
+  - oraclejdk8
+
+android:
+  components:
+    - tools
+    - build-tools-26.0.2
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+before_install:
+  - yes | sdkmanager "platforms;android-26"
+
+script:
+  ./gradlew clean ktlint
