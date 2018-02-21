@@ -1,4 +1,7 @@
 # HelloKotlin
+
+[![Build Status](https://travis-ci.org/voghDev/HelloKotlin.svg?branch=master)](https://travis-ci.org/voghDev/HelloKotlin)
+
 Some learning and feature testing with the Kotlin language. Nothing serious.
 
 Since [Google I/O 2017][1], Kotlin is [officially supported][2] by Google For Android Development
