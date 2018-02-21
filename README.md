@@ -1,6 +1,7 @@
 # HelloKotlin
 
 [![Build Status](https://travis-ci.org/voghDev/HelloKotlin.svg?branch=master)](https://travis-ci.org/voghDev/HelloKotlin)
+[![Kotlin version badge](https://img.shields.io/badge/kotlin-1.1.4-blue.svg)](http://kotlinlang.org/)
 
 Some learning and feature testing with the Kotlin language. Nothing serious.
 
