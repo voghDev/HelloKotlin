@@ -15,12 +15,10 @@
  */
 package es.voghdev.hellokotlin
 
-import android.content.Context
-import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.whenever
 import com.nhaarman.mockito_kotlin.doAnswer
-import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import es.voghdev.hellokotlin.domain.AsyncCall
 import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.features.async.SomeAsyncPresenter
