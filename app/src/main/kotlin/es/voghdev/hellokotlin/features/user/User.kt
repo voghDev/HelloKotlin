@@ -16,9 +16,9 @@
 package es.voghdev.hellokotlin.features.user
 
 data class User(
-        val name: String = "",
-        val address: String = "",
-        val username: String = "",
-        val email: String = "",
-        val thumbnail: String = ""
+    val name: String = "",
+    val address: String = "",
+    val username: String = "",
+    val email: String = "",
+    val thumbnail: String = ""
 )

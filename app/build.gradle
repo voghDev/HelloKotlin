@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "es.voghdev.hellokotlin"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -51,27 +51,19 @@ task createTestResources << {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.7.5'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-    androidTestCompile 'com.android.support:support-annotations:26.1.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.5'
 
     // Kotlin
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.16'
-    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.16"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.anko:anko-common:0.9.1a"
-    testCompile "com.nhaarman:mockito-kotlin:1.4.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.16'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.16"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.anko:anko-common:0.10.2"
+    testImplementation "com.nhaarman:mockito-kotlin:1.4.0"
 
-    ktlint "com.github.shyiko:ktlint:0.15.0"
+    ktlint "com.github.shyiko:ktlint:0.25.0"
 }
 
 repositories {

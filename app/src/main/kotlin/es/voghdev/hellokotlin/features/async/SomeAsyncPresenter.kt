@@ -22,7 +22,7 @@ import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.global.Presenter
 
 class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
-        Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>() {
+    Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>() {
 
     override fun initialize() {
         view?.showLoading()

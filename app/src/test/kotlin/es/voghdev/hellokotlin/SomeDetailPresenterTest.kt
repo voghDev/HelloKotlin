@@ -10,7 +10,6 @@ import es.voghdev.hellokotlin.features.user.User
 import es.voghdev.hellokotlin.features.user.UserRepository
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 import es.voghdev.hellokotlin.features.user.usecase.InsertUser
-import es.voghdev.hellokotlin.global.await
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Assert.assertEquals
