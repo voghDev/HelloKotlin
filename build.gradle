@@ -20,6 +20,7 @@ allprojects {
     repositories {
         jcenter()
         google()
+        //         maven { url "https://www.jitpack.io" } // Probably this repository is lacking
     }
 }
 
