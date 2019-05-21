@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "es.voghdev.hellokotlin"
         minSdkVersion 15
@@ -26,7 +25,8 @@ android {
     }
 
     packagingOptions {
-        exclude 'META-INF/main.kotlin_module' // Workaround that will be removed once we update to Kotlin 1.2.51 and coroutines 1.0.1
+        exclude 'META-INF/main.kotlin_module'
+        // Workaround that will be removed once we update to Kotlin 1.2.51 and coroutines 1.0.1
     }
 }
 
@@ -42,15 +42,17 @@ task runAcceptanceTests(dependsOn: [':app:connectedAndroidTest']) {
     description 'Run all acceptance tests.'
 }
 
-task createTestResources << {
-    def mockMakerFile = new File("$projectDir/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker")
-    if (System.env.MOCK_MAKER != null) {
-        logger.info("Using MockMaker ${System.env.MOCK_MAKER}")
-        mockMakerFile.parentFile.mkdirs()
-        mockMakerFile.createNewFile()
-        mockMakerFile.write(System.env.MOCK_MAKER)
-    } else {
-        logger.info("Using default MockMaker")
+task createTestResources {
+    doLast {
+        def mockMakerFile = new File("$projectDir/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker")
+        if (System.env.MOCK_MAKER != null) {
+            logger.info("Using MockMaker ${System.env.MOCK_MAKER}")
+            mockMakerFile.parentFile.mkdirs()
+            mockMakerFile.createNewFile()
+            mockMakerFile.write(System.env.MOCK_MAKER)
+        } else {
+            logger.info("Using default MockMaker")
+        }
     }
 }
 
