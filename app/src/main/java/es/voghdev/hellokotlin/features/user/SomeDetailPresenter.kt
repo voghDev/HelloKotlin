@@ -15,58 +15,10 @@
  */
 package es.voghdev.hellokotlin.features.user
 
-import es.voghdev.hellokotlin.R
-import es.voghdev.hellokotlin.domain.ResLocator
-import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.Presenter
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
-class SomeDetailPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val userRepository: UserRepository) :
+class SomeDetailPresenter() :
     Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
-
-    override fun initialize() {
-        GlobalScope.launch(dispatcher) {
-            async {
-                val title = resLocator.getString(R.string.tech_debt_is_paid)
-
-                view?.showTitle(title)
-
-                val users = userRepository.getUsers()
-
-                if (users.isNotEmpty()) view?.showUsers(users) else view?.showEmptyCase()
-            }.await()
-        }
-    }
-
-    fun onSomeEventHappened() {
-        GlobalScope.launch(dispatcher) {
-            async {
-                userRepository.performSomeBlockingOperation()
-            }.await()
-
-            view?.showSomeResult()
-        }
-    }
-
-    fun onSomeOtherEventHappened() {
-        GlobalScope.launch(dispatcher) {
-            val result = async { userRepository.performSomeBlockingOperationWithResult() }.await()
-
-            view?.showUsers(result)
-        }
-    }
-
-    fun onEventWithParameterHappened(customerId: Long) {
-        GlobalScope.launch(dispatcher) {
-            async {
-                userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
-            }.await()
-            view?.showSomeResult()
-        }
-    }
 
     interface MVPView {
         fun showUsers(users: List<User>)
