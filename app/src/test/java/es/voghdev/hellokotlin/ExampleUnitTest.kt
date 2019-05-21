@@ -21,11 +21,10 @@ import es.voghdev.hellokotlin.domain.Option
 import es.voghdev.hellokotlin.domain.model.Configuration
 import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.startsWithUppercaseLetter
-import org.jetbrains.anko.doAsync
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ExampleUnitTest {
@@ -67,13 +66,6 @@ should have two carriage returns """.trimIndent()
 
         assertEquals(oldStyleVersion, -1)
         assertEquals(elvisOperatorVersion, -1)
-    }
-
-    @Test
-    fun shouldExecuteAsyncBlocksUsingDoAsync() {
-        doAsync {
-            println("This is doAsync(). It belongs to Anko")
-        }
     }
 
     @Test

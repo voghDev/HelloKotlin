@@ -25,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
@@ -57,10 +58,8 @@ class SomeDetailPresenterTest {
     }
 
     @Test
-    fun `should fetch the list of users on start`() {
-        runBlocking {
-            presenter.initialize()
-        }
+    fun `should fetch the list of users on start`() = testCoroutineContext.runBlockingTest {
+        presenter.initialize()
 
         verify(mockView).showUsers(any())
     }
