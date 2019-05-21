@@ -19,11 +19,14 @@ import es.voghdev.hellokotlin.R
 import es.voghdev.hellokotlin.domain.ResLocator
 import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.Presenter
-import es.voghdev.hellokotlin.global.coroutine
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
 
-class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRepository) :
-        Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
+class SomeDetailPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val userRepository: UserRepository) :
+    Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
 
     override fun initialize() {
         val title = resLocator.getString(R.string.tech_debt_is_paid)
@@ -37,25 +40,28 @@ class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRe
     }
 
     suspend fun onSomeEventHappened() {
-        coroutine {
-            userRepository.performSomeBlockingOperation()
-        }.await()
+        GlobalScope.launch(dispatcher) {
+            async {
+                userRepository.performSomeBlockingOperation()
+            }.await()
 
-        view?.showSomeResult()
+            view?.showSomeResult()
+        }
     }
 
     suspend fun onSomeOtherEventHappened() {
-        coroutine {
-            userRepository.performSomeBlockingOperationWithResult()
-        }.await().let { result ->
+        GlobalScope.launch(dispatcher) {
+            val result = async { userRepository.performSomeBlockingOperationWithResult() }.await()
+
             view?.showUsers(result)
         }
     }
 
     suspend fun onEventWithParameterHappened(customerId: Long) {
-        coroutine {
-            userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
-        }.await().let { _ ->
+        GlobalScope.launch(dispatcher) {
+            async {
+                userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
+            }.await()
             view?.showSomeResult()
         }
     }

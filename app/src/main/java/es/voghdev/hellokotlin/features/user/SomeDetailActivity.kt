@@ -24,6 +24,7 @@ import es.voghdev.hellokotlin.features.user.datasource.GetUsersDBDataSource
 import es.voghdev.hellokotlin.features.user.datasource.InsertUserApiDataSource
 import es.voghdev.hellokotlin.global.BaseActivity
 import kotlinx.android.synthetic.main.activity_some_detail.*
+import kotlinx.coroutines.Dispatchers
 
 class SomeDetailActivity : BaseActivity(),
         SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator {
@@ -36,7 +37,7 @@ class SomeDetailActivity : BaseActivity(),
                 getUsersDbDataSource = GetUsersDBDataSource(),
                 insertUserApiDataSource = InsertUserApiDataSource())
 
-        presenter = SomeDetailPresenter(AndroidResLocator(this), userRepository)
+        presenter = SomeDetailPresenter(Dispatchers.IO, AndroidResLocator(this), userRepository)
         presenter?.initialize()
         presenter?.view = this
         presenter?.navigator = this
