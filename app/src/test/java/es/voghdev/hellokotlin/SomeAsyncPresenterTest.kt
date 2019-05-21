@@ -29,21 +29,20 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class SomeAsyncPresenterTest {
-    @Mock
-    lateinit var mockContext: Context
+    val mockContext: Context = mock<Context> {
+        on { getString(anyInt(), anyString()) } doReturn "Name is Martin"
+    }
 
-    @Mock
-    lateinit var mockNavigator: SomeAsyncPresenter.Navigator
+    val mockNavigator: SomeAsyncPresenter.Navigator = mock()
 
-    @Mock
-    lateinit var mockView: SomeAsyncPresenter.MVPView
+    val mockView: SomeAsyncPresenter.MVPView = mock()
 
-    @Mock lateinit var mockAsyncRepository: AsyncCall
-    @Mock lateinit var mockListener: AsyncCall.Listener
+    val mockAsyncRepository: AsyncCall = mock()
+
+    val mockListener: AsyncCall.Listener = mock()
 
     lateinit var presenter: SomeAsyncPresenter
 
@@ -99,10 +98,6 @@ class SomeAsyncPresenterTest {
 
     @Test
     fun `should show a sample name when data is received (using mockito-kotlin doReturn)`() {
-        mockContext = mock<Context> {
-            on { getString(anyInt(), anyString()) } doReturn "Name is Martin"
-        }
-
         presenter = createMockedPresenter()
 
         val data = SampleData(id = 5L, name = "Martin")

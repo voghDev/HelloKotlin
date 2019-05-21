@@ -16,6 +16,7 @@
 package es.voghdev.hellokotlin
 
 import com.nhaarman.mockito_kotlin.argumentCaptor
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -37,23 +38,17 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class SomeDetailPresenterTest {
-    @Mock
-    lateinit var mockUserRepository: UserRepository
+    val mockUserRepository: UserRepository = mock()
 
-    @Mock
-    lateinit var mockResLocator: ResLocator
+    val mockResLocator: ResLocator = mock()
 
-    @Mock
-    lateinit var mockView: SomeDetailPresenter.MVPView
+    val mockView: SomeDetailPresenter.MVPView = mock()
 
-    @Mock
-    lateinit var mockGetUsersApi: GetUsers
+    val mockGetUsersApi: GetUsers = mock()
 
-    @Mock
-    lateinit var mockGetUsersDb: GetUsers
+    val mockGetUsersDb: GetUsers = mock()
 
-    @Mock
-    lateinit var mockInsertUser: InsertUser
+    val mockInsertUser: InsertUser = mock()
 
     lateinit var presenter: SomeDetailPresenter
 
