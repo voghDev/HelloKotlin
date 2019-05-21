@@ -18,10 +18,6 @@ package es.voghdev.hellokotlin
 import android.content.Context
 import com.nhaarman.mockito_kotlin.whenever
 
-fun Any.await() {
-    Thread.sleep(30)
-}
-
 fun <T> given(t: T): T {
     return t
 }
