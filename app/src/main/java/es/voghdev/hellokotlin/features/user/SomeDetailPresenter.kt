@@ -25,13 +25,13 @@ class SomeDetailPresenter(val userRepository: UserRepository) :
     Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
 
     override suspend fun initialize() {
-        val result = coroutine {
-            userRepository.getUsers()
+        coroutine {
+            val result = userRepository.getUsers()
+
+            view?.showUsers(result)
+
+            view?.showEmptyCase()
         }
-
-        view?.showUsers(result)
-
-        view?.showEmptyCase()
     }
 
     suspend fun <T> coroutine(
