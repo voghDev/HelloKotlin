@@ -24,6 +24,10 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
+
+    packagingOptions {
+        exclude 'META-INF/main.kotlin_module' // Workaround that will be removed once we update to Kotlin 1.2.51 and coroutines 1.0.1
+    }
 }
 
 configurations {
