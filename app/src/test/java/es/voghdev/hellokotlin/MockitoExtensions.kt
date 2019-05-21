@@ -16,7 +16,7 @@
 package es.voghdev.hellokotlin
 
 import android.content.Context
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.whenever
 
 fun <T> given(t: T): T {
     return t

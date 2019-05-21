@@ -15,6 +15,53 @@
  */
 package es.voghdev.hellokotlin
 
-class SomeDetailPresenterTest {
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
+import es.voghdev.hellokotlin.features.user.UserRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.mockito.MockitoAnnotations
 
+class SomeDetailPresenterTest {
+    lateinit var presenter: SomeDetailPresenter
+    private val testCoroutineContext = TestCoroutineDispatcher()
+    val mockUserRepository: UserRepository = mock()
+
+    val mockView: SomeDetailPresenter.MVPView = mock()
+    val mockNavigator: SomeDetailPresenter.Navigator = mock()
+
+    @Before
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        Dispatchers.setMain(testCoroutineContext as CoroutineDispatcher)
+        presenter = SomeDetailPresenter(mockUserRepository)
+        presenter.view = mockView
+        presenter.navigator = mockNavigator
+    }
+
+    @After
+    fun tearDown() {
+        runBlocking {
+            presenter.destroy()
+            Dispatchers.resetMain()
+        }
+    }
+
+    @Test
+    fun `should fetch the list of users on start`() {
+        runBlocking {
+            presenter.initialize()
+        }
+
+        verify(mockView).showUsers(any())
+    }
 }

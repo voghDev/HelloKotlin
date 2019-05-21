@@ -23,22 +23,28 @@ import es.voghdev.hellokotlin.features.user.datasource.GetUsersDBDataSource
 import es.voghdev.hellokotlin.features.user.datasource.InsertUserApiDataSource
 import es.voghdev.hellokotlin.global.BaseActivity
 import kotlinx.android.synthetic.main.activity_some_detail.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SomeDetailActivity : BaseActivity(),
-        SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator {
+    SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator {
     var presenter: SomeDetailPresenter? = null
     lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         userRepository = UserRepository(
-                getUsersApiDataSource = GetUsersApiDataSource(),
-                getUsersDbDataSource = GetUsersDBDataSource(),
-                insertUserApiDataSource = InsertUserApiDataSource())
+            getUsersApiDataSource = GetUsersApiDataSource(),
+            getUsersDbDataSource = GetUsersDBDataSource(),
+            insertUserApiDataSource = InsertUserApiDataSource())
 
-        presenter = SomeDetailPresenter()
-        presenter?.initialize()
+        presenter = SomeDetailPresenter(userRepository)
+
         presenter?.view = this
         presenter?.navigator = this
+
+        GlobalScope.launch {
+            presenter?.initialize()
+        }
     }
 
     override fun getLayoutId(): Int {

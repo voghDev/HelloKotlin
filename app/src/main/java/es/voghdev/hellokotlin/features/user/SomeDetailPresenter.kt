@@ -16,9 +16,26 @@
 package es.voghdev.hellokotlin.features.user
 
 import es.voghdev.hellokotlin.global.Presenter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
-class SomeDetailPresenter() :
+class SomeDetailPresenter(val userRepository: UserRepository) :
     Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
+
+    override suspend fun initialize() {
+        val result = coroutine {
+            userRepository.getUsers()
+        }
+
+        view?.showUsers(result)
+    }
+
+    suspend fun <T> coroutine(
+        context: CoroutineContext = Dispatchers.Default,
+        block: suspend CoroutineScope.() -> T
+    ): T = withContext(context, block)
 
     interface MVPView {
         fun showUsers(users: List<User>)
