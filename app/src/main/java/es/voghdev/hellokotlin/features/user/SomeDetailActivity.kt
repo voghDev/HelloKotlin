@@ -16,13 +16,12 @@
 package es.voghdev.hellokotlin.features.user
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.widget.TextView
 import es.voghdev.hellokotlin.R
 import es.voghdev.hellokotlin.features.user.datasource.GetUsersApiDataSource
 import es.voghdev.hellokotlin.features.user.datasource.GetUsersDBDataSource
 import es.voghdev.hellokotlin.features.user.datasource.InsertUserApiDataSource
 import es.voghdev.hellokotlin.global.BaseActivity
-import kotlinx.android.synthetic.main.activity_some_detail.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -30,8 +29,11 @@ class SomeDetailActivity : BaseActivity(),
     SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator {
     var presenter: SomeDetailPresenter? = null
     lateinit var userRepository: UserRepository
+    var tvTitle: TextView? = null
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         userRepository = UserRepository(
             getUsersApiDataSource = GetUsersApiDataSource(),
             getUsersDbDataSource = GetUsersDBDataSource(),
@@ -42,28 +44,28 @@ class SomeDetailActivity : BaseActivity(),
         presenter?.view = this
         presenter?.navigator = this
 
+        tvTitle = findViewById(R.id.tvTitle)
+
         GlobalScope.launch {
             presenter?.initialize()
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_some_detail
-    }
+    override fun getLayoutId(): Int = R.layout.activity_some_detail
 
-    override fun showUsers(users: List<User>) {
-        tvTitle.text = getString(R.string.users_found_param, users.size)
+    override fun showUsers(users: List<User>) = runOnUiThread {
+        tvTitle?.text = getString(R.string.users_found_param, users.size)
     }
 
     override fun showEmptyCase() {
-        tvTitle.text = getString(R.string.no_results)
+        tvTitle?.text = getString(R.string.no_results)
     }
 
     override fun showSomeResult() {
-        tvTitle.text = "Ok, result has arrived"
+        tvTitle?.text = "Ok, result has arrived"
     }
 
     override fun showTitle(title: String) {
-        tvTitle.text = title
+        tvTitle?.text = title
     }
 }

@@ -30,6 +30,8 @@ class SomeDetailPresenter(val userRepository: UserRepository) :
         }
 
         view?.showUsers(result)
+
+        view?.showEmptyCase()
     }
 
     suspend fun <T> coroutine(
