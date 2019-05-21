@@ -23,23 +23,25 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.doAsync
 
 class SomeDetailPresenter(val dispatcher: CoroutineDispatcher, val resLocator: ResLocator, val userRepository: UserRepository) :
     Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
 
     override fun initialize() {
-        val title = resLocator.getString(R.string.tech_debt_is_paid)
-        view?.showTitle(title)
+        GlobalScope.launch(dispatcher) {
+            async {
+                val title = resLocator.getString(R.string.tech_debt_is_paid)
 
-        doAsync {
-            val users = userRepository.getUsers()
+                view?.showTitle(title)
 
-            if (users.isNotEmpty()) view?.showUsers(users) else view?.showEmptyCase()
+                val users = userRepository.getUsers()
+
+                if (users.isNotEmpty()) view?.showUsers(users) else view?.showEmptyCase()
+            }.await()
         }
     }
 
-    suspend fun onSomeEventHappened() {
+    fun onSomeEventHappened() {
         GlobalScope.launch(dispatcher) {
             async {
                 userRepository.performSomeBlockingOperation()
@@ -49,7 +51,7 @@ class SomeDetailPresenter(val dispatcher: CoroutineDispatcher, val resLocator: R
         }
     }
 
-    suspend fun onSomeOtherEventHappened() {
+    fun onSomeOtherEventHappened() {
         GlobalScope.launch(dispatcher) {
             val result = async { userRepository.performSomeBlockingOperationWithResult() }.await()
 
@@ -57,7 +59,7 @@ class SomeDetailPresenter(val dispatcher: CoroutineDispatcher, val resLocator: R
         }
     }
 
-    suspend fun onEventWithParameterHappened(customerId: Long) {
+    fun onEventWithParameterHappened(customerId: Long) {
         GlobalScope.launch(dispatcher) {
             async {
                 userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
