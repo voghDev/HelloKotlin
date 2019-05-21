@@ -34,7 +34,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyList
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class SomeDetailPresenterTest {
@@ -99,7 +98,6 @@ class SomeDetailPresenterTest {
     fun `should call a simple method containing a coroutine in runBlocking mode`() {
 
         presenter.onSomeEventHappened()
-
 
         verify(mockView).showSomeResult()
     }
