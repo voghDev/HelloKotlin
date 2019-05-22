@@ -16,10 +16,15 @@
 package es.voghdev.hellokotlin
 
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import es.voghdev.hellokotlin.features.user.SomeDetailPresenter
+import es.voghdev.hellokotlin.features.user.User
 import es.voghdev.hellokotlin.features.user.UserRepository
+import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -28,8 +33,11 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.MockitoAnnotations
 
 class SomeDetailPresenterTest {
@@ -62,5 +70,6 @@ class SomeDetailPresenterTest {
         presenter.initialize()
 
         verify(mockView).showUsers(any())
+        verify(mockView, times(1))?.showUsers(anyList())
     }
 }
