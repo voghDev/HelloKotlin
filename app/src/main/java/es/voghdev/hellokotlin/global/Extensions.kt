@@ -49,5 +49,3 @@ fun Activity.color(resId: Int): Int {
 fun String.startsWithUppercaseLetter(): Boolean {
     return this.matches(Regex("[A-Z]{1}.*"))
 }
-
-public fun MainScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)

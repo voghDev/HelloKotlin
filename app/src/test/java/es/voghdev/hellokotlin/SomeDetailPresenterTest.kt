@@ -60,6 +60,8 @@ class SomeDetailPresenterTest {
     fun `should fetch the list of users on start`() = runBlockingTest {
         presenter.initialize()
 
+        presenter.resume()
+
         verify(mockView).showUsers(any())
         verify(mockView, times(1))?.showUsers(anyList())
     }
