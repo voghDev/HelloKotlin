@@ -50,4 +50,4 @@ fun String.startsWithUppercaseLetter(): Boolean {
     return this.matches(Regex("[A-Z]{1}.*"))
 }
 
-//public fun MainScope(): CoroutineScope = ContextScope(SupervisorJob() + Dispatchers.Main)
+public fun MainScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)

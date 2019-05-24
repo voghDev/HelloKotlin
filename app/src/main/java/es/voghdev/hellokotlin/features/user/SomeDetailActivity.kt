@@ -22,7 +22,6 @@ import es.voghdev.hellokotlin.features.user.datasource.GetUsersApiDataSource
 import es.voghdev.hellokotlin.features.user.datasource.GetUsersDBDataSource
 import es.voghdev.hellokotlin.features.user.datasource.InsertUserApiDataSource
 import es.voghdev.hellokotlin.global.BaseActivity
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SomeDetailActivity : BaseActivity(),
@@ -46,9 +45,17 @@ class SomeDetailActivity : BaseActivity(),
 
         tvTitle = findViewById(R.id.tvTitle)
 
-        GlobalScope.launch {
+        presenter?.launch {
             presenter?.initialize()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+//        presenter?.launch {
+//            presenter?.resume()
+//        }
     }
 
     override fun getLayoutId(): Int = R.layout.activity_some_detail

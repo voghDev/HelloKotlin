@@ -15,15 +15,16 @@
  */
 package es.voghdev.hellokotlin.features.user
 
+import es.voghdev.hellokotlin.global.MainScope
 import es.voghdev.hellokotlin.global.Presenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class SomeDetailPresenter(val userRepository: UserRepository) :
-    Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() { //, CoroutineScope by MainScope() {
+    Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>(), CoroutineScope by MainScope() {
 
     override suspend fun initialize() {
         coroutine {
@@ -33,6 +34,18 @@ class SomeDetailPresenter(val userRepository: UserRepository) :
 
             view?.showEmptyCase()
         }
+    }
+
+    override suspend fun resume() {
+        requestUsers()
+    }
+
+    override suspend fun destroy() {
+        job.cancel()
+    }
+
+    private fun requestUsers() = launch {
+        coroutine { userRepository.getUsers() }
     }
 
     suspend fun <T> coroutine(

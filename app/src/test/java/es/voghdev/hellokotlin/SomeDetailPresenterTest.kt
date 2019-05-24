@@ -66,8 +66,10 @@ class SomeDetailPresenterTest {
     }
 
     @Test
-    fun `should fetch the list of users on start`() = testCoroutineContext.runBlockingTest {
-        presenter.initialize()
+    fun `should fetch the list of users on start`() {
+        runBlocking {
+            presenter.initialize()
+        }
 
         verify(mockView).showUsers(any())
         verify(mockView, times(1))?.showUsers(anyList())
