@@ -65,7 +65,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.27.0"
     testImplementation "org.mockito:mockito-inline:2.27.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     ktlint "com.github.shyiko:ktlint:0.25.0"
 }
