@@ -26,9 +26,6 @@ class UserRepository(val getUsersApiDataSource: GetUsers, val getUsersDbDataSour
     var cache: MutableList<User> = ArrayList<User>()
 
     override fun getUsers(): List<User> {
-        if (cachePolicy?.isCacheDirty() ?: false)
-            cache.clear()
-
         cache = getUsersApiDataSource.getUsers() as MutableList<User>
         cachePolicy = TimedCachePolicy(15000)
 

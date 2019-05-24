@@ -15,6 +15,11 @@
  */
 package es.voghdev.hellokotlin.global
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
+
 abstract class Presenter<T1, T2>() {
     open suspend fun initialize() { /* Empty */
     }
@@ -25,9 +30,14 @@ abstract class Presenter<T1, T2>() {
     open suspend fun pause() { /* Empty */
     }
 
-    open suspend fun destroy() { /* Empty */
+    open fun destroy() { /* Empty */
     }
 
     var view: T1? = null
     var navigator: T2? = null
+
+    suspend fun <T> coroutine(
+        context: CoroutineContext = Dispatchers.IO,
+        block: suspend CoroutineScope.() -> T
+    ): T = withContext(context, block)
 }

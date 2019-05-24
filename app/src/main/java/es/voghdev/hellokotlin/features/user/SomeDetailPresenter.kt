@@ -19,39 +19,33 @@ import es.voghdev.hellokotlin.global.MainScope
 import es.voghdev.hellokotlin.global.Presenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 class SomeDetailPresenter(val userRepository: UserRepository) :
     Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>(), CoroutineScope by MainScope() {
 
     override suspend fun initialize() {
-        coroutine {
-            val result = userRepository.getUsers()
 
-            view?.showUsers(result)
-
-            view?.showEmptyCase()
-        }
     }
 
     override suspend fun resume() {
         requestUsers()
     }
 
-    override suspend fun destroy() {
-        job.cancel()
+    override fun destroy() {
+
     }
 
     private fun requestUsers() = launch {
-        coroutine { userRepository.getUsers() }
-    }
+        coroutine {
+            val result = userRepository.getUsers()
 
-    suspend fun <T> coroutine(
-        context: CoroutineContext = Dispatchers.Default,
-        block: suspend CoroutineScope.() -> T
-    ): T = withContext(context, block)
+            withContext(Dispatchers.Main) {
+                view?.showUsers(result)
+            }
+        }
+    }
 
     interface MVPView {
         fun showUsers(users: List<User>)

@@ -53,9 +53,9 @@ class SomeDetailActivity : BaseActivity(),
     override fun onResume() {
         super.onResume()
 
-//        presenter?.launch {
-//            presenter?.resume()
-//        }
+        presenter?.launch {
+            presenter?.resume()
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.activity_some_detail
