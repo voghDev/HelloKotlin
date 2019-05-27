@@ -1,6 +1,6 @@
 # HelloKotlin
 
-[![Kotlin version badge](https://img.shields.io/badge/kotlin-1.1.4-blue.svg)](http://kotlinlang.org/)
+[![Kotlin version badge](https://img.shields.io/badge/kotlin-1.3.10-blue.svg)](http://kotlinlang.org/)
 [![Build Status](https://travis-ci.org/voghDev/HelloKotlin.svg?branch=master)](https://travis-ci.org/voghDev/HelloKotlin)
 
 Some learning and feature testing with the Kotlin language. Nothing serious.
@@ -20,7 +20,7 @@ In this repository, we will work on the following aspects of Kotlin
 - [X] Pass some advanced Unit tests mocking instances and testing asynchronous calls
 - [X] Add mockito-kotlin to clean Mockito boilerplate in tests
 - [X] Apply Ktlint to a Kotlin project and see how it works
-- [ ] Add a branch that includes tests with kotlintest to see how it improves readability
+- [X] Use kotlintest to improve test readability
 - [ ] Add a branch that includes tests with Spek to see how it improves readability
 - [X] Add some example usage of Kotlin Coroutines to understand how they work
 - [X] Use Coroutines in tests with kotlinx.coroutines and Anko async/doAsync blocks
