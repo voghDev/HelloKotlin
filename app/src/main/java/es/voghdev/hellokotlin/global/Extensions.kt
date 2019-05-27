@@ -18,9 +18,6 @@ package es.voghdev.hellokotlin.global
 import android.app.Activity
 import android.support.v4.content.ContextCompat
 import android.util.DisplayMetrics
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 
 /**
  * Returns screen Width, using the display metrics

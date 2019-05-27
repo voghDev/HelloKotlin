@@ -63,6 +63,6 @@ class SomeDetailPresenterTest {
         presenter.resume()
 
         verify(mockView).showUsers(any())
-        verify(mockView, times(1))?.showUsers(anyList())
+        verify(mockView, times(1)).showUsers(anyList())
     }
 }

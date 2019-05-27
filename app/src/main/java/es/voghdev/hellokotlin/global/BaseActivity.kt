@@ -16,7 +16,6 @@
 package es.voghdev.hellokotlin.global
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 
 abstract class BaseActivity : AppCompatActivity() {

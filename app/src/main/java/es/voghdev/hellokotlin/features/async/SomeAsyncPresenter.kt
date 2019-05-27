@@ -20,9 +20,37 @@ import es.voghdev.hellokotlin.R
 import es.voghdev.hellokotlin.domain.AsyncCall
 import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.global.Presenter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-class SomeAsyncPresenter() :
-    Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>() {
+class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
+    Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>(), CoroutineScope {
+
+    override suspend fun initialize() {
+        view?.showLoading()
+
+        launch {
+            asyncRepository.execute(object : AsyncCall.Listener {
+                override fun onSuccess(s: String) {
+                    view?.showSuccess(s)
+                }
+
+                override fun onFailure(e: Exception) {
+                    view?.showError(e.message ?: "")
+                }
+            })
+        }
+    }
+
+    fun onDataReceived(data: SampleData) {
+        view?.showName(context.getString(R.string.name_is, data.name))
+    }
+
+    fun onFailureNotified() {
+        val appName = context.getString(R.string.app_name)
+
+        view?.showError("Error: $appName")
+    }
 
     interface MVPView {
         fun showSuccess(s: String)

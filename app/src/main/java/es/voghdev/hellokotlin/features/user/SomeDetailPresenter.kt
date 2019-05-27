@@ -18,28 +18,19 @@ package es.voghdev.hellokotlin.features.user
 import es.voghdev.hellokotlin.global.Presenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SomeDetailPresenter(val userRepository: UserRepository) :
     Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>(), CoroutineScope {
 
-    val job = Job()
-
-    override val coroutineContext = Dispatchers.Main + job
-
-    override suspend fun initialize() {
-
-    }
+    override suspend fun initialize() = Unit
 
     override suspend fun resume() {
         requestUsers()
     }
 
-    override fun destroy() {
-        job.cancel()
-    }
+    override fun destroy() = Unit
 
     private fun requestUsers() = launch {
         coroutine {
