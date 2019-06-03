@@ -20,22 +20,26 @@ import es.voghdev.hellokotlin.R
 import es.voghdev.hellokotlin.domain.AsyncCall
 import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.global.Presenter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class SomeAsyncPresenter(val context: Context, val asyncRepository: AsyncCall) :
-    Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>() {
+    Presenter<SomeAsyncPresenter.MVPView, SomeAsyncPresenter.Navigator>(), CoroutineScope {
 
-    override fun initialize() {
+    override suspend fun initialize() {
         view?.showLoading()
 
-        asyncRepository.execute(object : AsyncCall.Listener {
-            override fun onSuccess(s: String) {
-                view?.showSuccess(s)
-            }
+        launch {
+            asyncRepository.execute(object : AsyncCall.Listener {
+                override fun onSuccess(s: String) {
+                    view?.showSuccess(s)
+                }
 
-            override fun onFailure(e: Exception) {
-                view?.showError(e.message ?: "")
-            }
-        })
+                override fun onFailure(e: Exception) {
+                    view?.showError(e.message ?: "")
+                }
+            })
+        }
     }
 
     fun onDataReceived(data: SampleData) {

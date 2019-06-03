@@ -15,19 +15,38 @@
  */
 package es.voghdev.hellokotlin.global
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
+
 abstract class Presenter<T1, T2>() {
-    open fun initialize() { /* Empty */
+    open suspend fun initialize() { /* Empty */
     }
 
-    open fun resume() { /* Empty */
+    open suspend fun resume() { /* Empty */
     }
 
-    open fun pause() { /* Empty */
+    open suspend fun pause() { /* Empty */
     }
 
-    open fun destroy() { /* Empty */
+    open fun destroy() {
+        view = null
+        navigator = null
+
+        job.cancel()
     }
 
     var view: T1? = null
     var navigator: T2? = null
+
+    val job = Job()
+
+    val coroutineContext = Dispatchers.Main + job
+
+    suspend fun <T> coroutine(
+        context: CoroutineContext = Dispatchers.Main,
+        block: suspend CoroutineScope.() -> T
+    ): T = withContext(context, block)
 }

@@ -15,48 +15,30 @@
  */
 package es.voghdev.hellokotlin.features.user
 
-import es.voghdev.hellokotlin.R
-import es.voghdev.hellokotlin.domain.ResLocator
-import es.voghdev.hellokotlin.features.invoice.Invoice
 import es.voghdev.hellokotlin.global.Presenter
-import es.voghdev.hellokotlin.global.coroutine
-import org.jetbrains.anko.doAsync
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class SomeDetailPresenter(val resLocator: ResLocator, val userRepository: UserRepository) :
-        Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>() {
+class SomeDetailPresenter(val userRepository: UserRepository) :
+    Presenter<SomeDetailPresenter.MVPView, SomeDetailPresenter.Navigator>(), CoroutineScope {
 
-    override fun initialize() {
-        val title = resLocator.getString(R.string.tech_debt_is_paid)
-        view?.showTitle(title)
+    override suspend fun initialize() = Unit
 
-        doAsync {
-            val users = userRepository.getUsers()
-
-            if (users.isNotEmpty()) view?.showUsers(users) else view?.showEmptyCase()
-        }
+    override suspend fun resume() {
+        requestUsers()
     }
 
-    suspend fun onSomeEventHappened() {
-        coroutine {
-            userRepository.performSomeBlockingOperation()
-        }.await()
+    override fun destroy() = Unit
 
-        view?.showSomeResult()
-    }
-
-    suspend fun onSomeOtherEventHappened() {
+    private fun requestUsers() = launch {
         coroutine {
-            userRepository.performSomeBlockingOperationWithResult()
-        }.await().let { result ->
-            view?.showUsers(result)
-        }
-    }
+            val result = userRepository.getUsers()
 
-    suspend fun onEventWithParameterHappened(customerId: Long) {
-        coroutine {
-            userRepository.performSomeBlockingOperationWithAParameter(Invoice(customerId = customerId, amount = 50f))
-        }.await().let { _ ->
-            view?.showSomeResult()
+            withContext(Dispatchers.Main) {
+                view?.showUsers(result)
+            }
         }
     }
 

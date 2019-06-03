@@ -18,10 +18,6 @@ package es.voghdev.hellokotlin.global
 import android.app.Activity
 import android.support.v4.content.ContextCompat
 import android.util.DisplayMetrics
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.run
 
 /**
  * Returns screen Width, using the display metrics
@@ -45,14 +41,6 @@ fun Activity.screenHeight(): Int {
 
 fun Activity.color(resId: Int): Int {
     return ContextCompat.getColor(this, resId)
-}
-
-suspend fun <T> asyncTask(function: () -> T): T {
-    return run(CommonPool) { function() }
-}
-
-fun <T> coroutine(function: () -> T): Deferred<T> {
-    return async(CommonPool) { function() }
 }
 
 fun String.startsWithUppercaseLetter(): Boolean {

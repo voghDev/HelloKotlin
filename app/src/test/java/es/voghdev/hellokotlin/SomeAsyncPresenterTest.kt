@@ -16,14 +16,20 @@
 package es.voghdev.hellokotlin
 
 import android.content.Context
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.doAnswer
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import es.voghdev.hellokotlin.domain.AsyncCall
 import es.voghdev.hellokotlin.domain.model.SampleData
 import es.voghdev.hellokotlin.features.async.SomeAsyncPresenter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt
@@ -33,7 +39,6 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 class SomeAsyncPresenterTest {
-
     @Mock
     lateinit var mockContext: Context
 
@@ -43,16 +48,27 @@ class SomeAsyncPresenterTest {
     @Mock
     lateinit var mockView: SomeAsyncPresenter.MVPView
 
-    @Mock lateinit var mockAsyncRepository: AsyncCall
-    @Mock lateinit var mockListener: AsyncCall.Listener
+    @Mock
+    lateinit var mockAsyncRepository: AsyncCall
+    @Mock
+    lateinit var mockListener: AsyncCall.Listener
 
     lateinit var presenter: SomeAsyncPresenter
+
+    val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
+        Dispatchers.setMain(testCoroutineDispatcher)
+
         presenter = createMockedPresenter()
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     private fun createMockedPresenter(): SomeAsyncPresenter {
@@ -63,26 +79,26 @@ class SomeAsyncPresenterTest {
     }
 
     @Test
-    fun `should show loading on start`() {
+    fun `should show loading on start`() = runBlockingTest {
         presenter.initialize()
 
         verify(mockView).showLoading()
     }
 
     @Test
-    fun `should show success on start if Repository returns success`() {
+    fun `should show success on start if Repository returns success`() = runBlockingTest {
         givenADataSourceReturningSuccess(mockListener)
 
-        presenter.initialize().await()
+        presenter.initialize()
 
         verify(mockView).showSuccess(anyString())
     }
 
     @Test
-    fun `should show error on start if Repository returns error`() {
+    fun `should show error on start if Repository returns error`() = runBlockingTest {
         givenADataSourceReturningFailure(mockListener)
 
-        presenter.initialize().await()
+        presenter.initialize()
 
         verify(mockView).showError(anyString())
     }

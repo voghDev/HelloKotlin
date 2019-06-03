@@ -17,15 +17,23 @@ package es.voghdev.hellokotlin
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
+import android.widget.Toast
+import es.voghdev.hellokotlin.features.user.SomeDetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope {
+
+    val job = Job()
+    override val coroutineContext = Dispatchers.Main + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +42,9 @@ class MainActivity : AppCompatActivity() {
         button1.setOnClickListener {
             toast("You wrote: ${editText1.text}")
 
-            doAsync() {
+            launch {
                 Thread.sleep(2500)
-                uiThread {
+                withContext(Dispatchers.Main) {
                     val width: Int = screenWidth()
                     val height: Int = screenHeight()
 
@@ -44,6 +52,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        button1.setOnLongClickListener {
+            startActivity(Intent(this, SomeDetailActivity::class.java))
+            true
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        job.cancel()
     }
 
     fun Context.screenWidth(): Int {
@@ -57,4 +76,6 @@ class MainActivity : AppCompatActivity() {
         (this as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels
     }
+
+    fun toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) = Toast.makeText(this, text, duration).show()
 }

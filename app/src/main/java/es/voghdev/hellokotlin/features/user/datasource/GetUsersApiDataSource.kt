@@ -15,6 +15,12 @@
  */
 package es.voghdev.hellokotlin.features.user.datasource
 
+import es.voghdev.hellokotlin.features.user.User
 import es.voghdev.hellokotlin.features.user.usecase.GetUsers
 
-class GetUsersApiDataSource : GetUsers
+class GetUsersApiDataSource : GetUsers {
+    override fun getUsers() = listOf(
+        User("Roland Bergen", "121 Apple St.", "rolandb101", "rolandb@email.com", "roland.png"),
+        User("Amanda Bergen", "121 Apple St.", "amab101", "amab@email.com", "amanda.png")
+    )
+}
